@@ -1,0 +1,872 @@
+/* Overrides: widen the /market filter column. #filters is set by the script, so this
+   only hits that column and (1,1,0) beats the site's .filters[data-v-*] (0,2,0) */
+.filters:has(> #filters) {
+  max-width: 380px;
+}
+
+/* Our filter column replaces the site's: once our panels are mounted, everything else in the column is hidden */
+#filters.pd2te-replaced > :not(.pd2te-own) {
+  display: none !important;
+}
+
+/* script's css*/
+.ls-btn {
+  position: relative;
+  align-items: center;
+  border-radius: 4px;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.25);
+  border-right: 2px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 1px 3px inset #ffffff1a;
+  cursor: pointer;
+  color: #000000bf;
+  display: flex;
+  font-family: Diablo;
+  font-size: 20px;
+  height: 34px;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  padding: 4px 8px;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
+  text-transform: uppercase;
+  -webkit-text-stroke-color: rgb(15, 15, 15);
+  -webkit-text-stroke-width: 1px;
+}
+
+.start-btn {
+  background-color: #0d8727;
+}
+.start-btn:hover {
+  background-color: #0d6e23;
+}
+
+.stop-btn {
+  background-color: #aa2800;
+}
+.stop-btn:hover {
+  background-color: #862000;
+}
+
+
+/* Livesearch controls: the Start/Stop button with the status line under it */
+.ls-controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.ls-status {
+  color: #9ca3af;
+  font-size: 13px;
+  line-height: 1.3;
+  margin: -0.25rem 0 0.75rem;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.ls-status[data-tone="warn"] {
+  color: #d4af37;
+}
+
+.ls-status[data-tone="error"] {
+  color: #f87171;
+}
+
+/* Create page panel: Bump Tab / Bump All / Delete Tab, Price Tab, Stop and status */
+.pd2te-create-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pd2te-create-row {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pd2te-create-btn {
+  font-size: 16px;
+  margin-bottom: 0;
+  min-width: 120px;
+}
+
+.pd2te-create-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Half the row's free space: a grow factor under 1 takes only that share of it */
+.pd2te-price-input {
+  flex: 0.5 1 0;
+  height: 34px;
+  min-width: 0;
+}
+
+.pd2te-create-panel .pd2te-create-status {
+  flex: 1;
+  margin: 0;
+  text-align: left;
+}
+
+.bump-button-container.pd2te-busy {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.settings-panel {
+  background: rgba(0, 0, 0, 0.65);
+  border: 2px solid #646464;
+  box-shadow: 1px 3px 8px 2px #000000a6;
+  color: #ffffffa6;
+  margin-bottom: 1.5rem;
+}
+
+.settings-panel-header {
+  background-color: #00000059;
+  padding: 6px 12px;
+  justify-content: space-between;
+  cursor: pointer;
+  display: flex;
+}
+
+.settings-panel-heading {
+  line-height: 22px;
+  font-size: 20px;
+  color: #ffffffbf;
+  font-family: Diablo;
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+
+.opened {
+  border-bottom: 2px solid #646464;
+}
+
+/* Prefixed: the site's Tailwind also has .hidden, and ours used to hide its desktop nav */
+/* !important: our panel bodies and grids set their own display, which would otherwise win over this */
+.pd2te-hidden {
+  display: none !important;
+}
+
+/* Kept in the layout while irrelevant, so appearing doesn't shift anything */
+.pd2te-invisible {
+  visibility: hidden;
+}
+
+/* Empty status and hint lines keep one line of space, so text arriving doesn't shift what's below */
+.pd2te-holds-line:empty::before {
+  content: "\00a0";
+}
+
+.settings-panel-svg {
+  --tw-text-opacity: 1;
+  color: rgba(156, 163, 175, 1);
+  width: 1.5rem;
+  margin-top: -0.25rem;
+}
+
+.settings-content {
+  color: #d1d5db;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 0.5rem;
+  padding: 10px 12px;
+}
+
+.name-container {
+  text-align: center;
+  flex-direction: column;
+  display: flex;
+  margin-bottom: 0;
+}
+
+.name-input {
+  background-color: #191919;
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 4px;
+  color: #d1d5db;
+  padding: 3px 6px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.settings-option-container {
+  align-items: center;
+  display: flex;
+}
+
+.settings-option-header {
+  color: #9ca3af;
+  font-family: Diablo;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-align: left;
+  width: 60%;
+}
+
+.settings-option-input-container {
+  text-align: center;
+  flex-direction: column;
+  width: 40%;
+  display: flex;
+}
+
+.settings-option-input {
+  appearance: none;
+  background-color: #191919;
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 4px;
+  color: #d1d5db;
+  padding: 3px 6px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.settings-option-checkbox {
+  align-self: center;
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+}
+
+/* Feed listings that have since left the market */
+.pd2te-gone .item,
+.pd2te-gone .meta > .flex:first-child {
+  opacity: 0.45;
+}
+
+.pd2te-gone-badge {
+  color: #f87171;
+  font-family: Diablo;
+  font-size: 13px;
+  margin-left: 0.75rem;
+  text-transform: uppercase;
+}
+
+/* Exchange page: Livesearch/Stop with the watched search and the status next to it */
+.pd2te-exchange-live {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  margin: 0.75rem 0 0 0.5rem;
+}
+
+.pd2te-exchange-btn {
+  margin-bottom: 0;
+  min-width: 140px;
+}
+
+.pd2te-exchange-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  min-width: 0;
+}
+
+.pd2te-exchange-watched {
+  color: #d1d5db;
+  overflow-wrap: anywhere;
+}
+
+.pd2te-exchange-live .ls-status {
+  margin: 0;
+  text-align: left;
+}
+
+.recent-hits {
+  border-top: 2px solid #646464;
+  font-size: 13px;
+  padding: 8px 12px;
+}
+
+.recent-hits-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.recent-hits-clear {
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.recent-hits-clear:hover {
+  color: #ffffffbf;
+}
+
+.recent-hits-list {
+  font-size: 14px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.recent-hits-list a {
+  color: rgba(96, 165, 250, 1);
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-hits-list a:hover {
+  color: rgba(37, 99, 235, 1);
+}
+
+.bump-button-container {
+  border: 12px solid transparent;
+  margin: -12px;
+  display: inline-block;
+}
+
+.bump-svg {
+  --tw-text-opacity: 1;
+  color: rgba(96, 165, 250, 1);
+  cursor: pointer;
+  width: 1.5rem;
+  margin-right: 0.5rem;
+  stroke-width: 2;
+  stroke: currentColor;
+  fill: none;
+}
+
+.bump-svg:hover {
+  color: rgba(37, 99, 235, 1);
+}
+
+/* Filter column */
+.pd2te-filters {
+  color: #d1d5db;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 0.5rem;
+}
+
+.pd2te-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pd2te-toolbar .pd2te-row > .ls-btn {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* Copy a link to the search: an icon next to Search and Clear */
+.pd2te-toolbar .pd2te-row > .pd2te-link-btn {
+  background-color: #3a3a3a;
+  color: #d1d5db;
+  flex: none;
+  padding: 0;
+  width: 42px;
+}
+
+.pd2te-toolbar .pd2te-row > .pd2te-link-btn:hover {
+  background-color: #4b4b4b;
+  color: #ffffff;
+}
+
+.pd2te-link-btn svg {
+  height: 20px;
+  width: 20px;
+}
+
+.pd2te-gold-btn {
+  background-color: #b8860b;
+}
+.pd2te-gold-btn:hover {
+  background-color: #9a7009;
+}
+
+.pd2te-panel {
+  background: rgba(0, 0, 0, 0.65);
+  border: 2px solid #646464;
+  box-shadow: 1px 3px 8px 2px #000000a6;
+}
+
+.pd2te-panel-header {
+  align-items: center;
+  background-color: #00000059;
+  cursor: pointer;
+  display: flex;
+  gap: 0.5rem;
+  padding: 6px 12px;
+  user-select: none;
+}
+
+.pd2te-panel-header.open {
+  border-bottom: 2px solid #646464;
+}
+
+.pd2te-panel-title {
+  color: #ffffffbf;
+  flex: 1;
+  font-family: Diablo;
+  font-size: 20px;
+  line-height: 22px;
+  text-transform: uppercase;
+}
+
+.pd2te-panel-toggle {
+  color: #9ca3af;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.pd2te-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 10px 12px;
+}
+
+.pd2te-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.pd2te-label {
+  color: #9ca3af;
+  font-family: Diablo;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.pd2te-row {
+  align-items: center;
+  display: flex;
+  gap: 0.35rem;
+}
+
+.pd2te-row > .pd2te-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.pd2te-grid2 {
+  display: grid;
+  gap: 0.35rem 0.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pd2te-grid2 > .pd2te-btn {
+  grid-column: 1 / -1;
+}
+
+.pd2te-input {
+  background-color: #191919;
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 4px;
+  color: #d1d5db;
+  font-size: 14px;
+  padding: 3px 6px;
+  width: 100%;
+}
+
+.pd2te-input:focus {
+  border-color: #9ca3af;
+  outline: none;
+}
+
+.pd2te-input.pd2te-invalid {
+  border-color: #f87171;
+}
+
+.pd2te-number {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  text-align: center;
+}
+
+select.pd2te-input {
+  cursor: pointer;
+}
+
+textarea.pd2te-input {
+  font-family: monospace;
+  font-size: 12px;
+  min-height: 90px;
+  resize: vertical;
+}
+
+.pd2te-btn {
+  background-color: #2b2b2b;
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 4px;
+  color: #d1d5db;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+
+.pd2te-btn:hover {
+  background-color: #3a3a3a;
+  color: #ffffff;
+}
+
+.pd2te-btn:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.pd2te-btn-small {
+  padding: 2px 8px;
+}
+
+.pd2te-btn-danger {
+  color: #f87171;
+}
+
+.pd2te-check-grid {
+  display: grid;
+  gap: 0.15rem 0.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pd2te-check {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: 0.35rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pd2te-checkbox {
+  cursor: pointer;
+  flex: none;
+  height: 15px;
+  width: 15px;
+}
+
+.pd2te-multi {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pd2te-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.pd2te-chips:empty {
+  display: none;
+}
+
+.pd2te-chip {
+  align-items: center;
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 13px;
+  gap: 0.25rem;
+  max-width: 100%;
+  padding: 1px 4px 1px 8px;
+}
+
+.pd2te-chip-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pd2te-chip-remove {
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 0 3px;
+}
+
+.pd2te-chip-remove:hover {
+  color: #f87171;
+}
+
+.pd2te-picker {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.pd2te-picker-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.pd2te-mod {
+  border: 1px solid #374151;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 6px;
+}
+
+.pd2te-mod-head {
+  align-items: center;
+  display: flex;
+  gap: 0.35rem;
+}
+
+.pd2te-mod-name {
+  flex: 1;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pd2te-group {
+  border: 1px solid #4b5563;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 8px;
+}
+
+.pd2te-group-head {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.pd2te-group-head select {
+  width: auto;
+}
+
+/* Sums: "Total" at least/at most, then one line per mod with its weight */
+.pd2te-sum-total {
+  flex: 1;
+  min-width: 0;
+}
+
+.pd2te-sum-term {
+  align-items: center;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  display: flex;
+  gap: 0.35rem;
+  padding: 4px 6px;
+}
+
+.pd2te-sum-times {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.pd2te-input.pd2te-sum-weight {
+  flex: 0 0 4.5rem;
+  width: 4.5rem;
+}
+
+.pd2te-spacer {
+  flex: 1;
+}
+
+.pd2te-hint {
+  color: #9ca3af;
+  font-size: 12px;
+  text-align: center;
+}
+
+.pd2te-preview {
+  background-color: #0f0f0f;
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 4px;
+  color: #9ca3af;
+  font-size: 11px;
+  margin: 0;
+  max-height: 260px;
+  overflow: auto;
+  padding: 6px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Filter from a result card */
+.pd2te-card-btn {
+  margin-right: 0.5rem;
+}
+
+.pd2te-item-filter {
+  background: rgba(0, 0, 0, 0.55);
+  border-top: 2px solid #646464;
+  color: #d1d5db;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  gap: 0.5rem;
+  padding: 8px 12px;
+}
+
+.pd2te-item-filter-head {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pd2te-item-filter-title {
+  color: #ffffffbf;
+  font-family: Diablo;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.pd2te-item-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.pd2te-item-row {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pd2te-item-row .pd2te-check {
+  flex: 1;
+  white-space: normal;
+}
+
+.pd2te-item-row .pd2te-number {
+  flex: none;
+  width: 72px;
+}
+
+.pd2te-item-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Type-ahead dropdown */
+.pd2te-picker {
+  position: relative;
+}
+
+.pd2te-dropdown {
+  background-color: #111111;
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 4px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+  font-size: 13px;
+  left: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 2px);
+  z-index: 60;
+}
+
+.pd2te-dropdown-row {
+  cursor: pointer;
+  overflow: hidden;
+  padding: 3px 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pd2te-dropdown-row:hover,
+.pd2te-dropdown-row.active {
+  background-color: #374151;
+  color: #ffffff;
+}
+
+.pd2te-dropdown-note {
+  color: #9ca3af;
+  font-size: 12px;
+  padding: 3px 8px;
+}
+
+.pd2te-dropdown-row.pd2te-current {
+  color: #d4af37;
+}
+
+.pd2te-row > .pd2te-picker {
+  flex: 1;
+  min-width: 0;
+}
+
+/* My Filters: the loaded filter was changed */
+.pd2te-unsaved {
+  color: #d4af37;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* The site's Filters page (/market/filters) */
+.pd2te-filters-bar {
+  align-items: center;
+  color: #d1d5db;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.pd2te-filters-bar .ls-status {
+  margin: 0;
+  text-align: left;
+}
+
+.pd2te-autosort .drag-handle {
+  display: none !important;
+}
+
+/* Card timestamps, after the site's own bump time */
+.pd2te-card-times {
+  align-items: center;
+  color: #9ca3af;
+  display: inline-flex;
+  flex-wrap: wrap;
+  font-size: 13px;
+  gap: 0.25rem 0.75rem;
+}
+
+.pd2te-card-time::before {
+  content: "· ";
+  color: #6b7280;
+}
+
+/* Card mod lines: the item's own amount and what its socketed jewels, runes and gems add */
+.pd2te-socket-note {
+  color: #9ca3af;
+  font-size: 12px;
+  margin-left: 0.4rem;
+  white-space: nowrap;
+}
+
+/* Card: what the filter column's sums add up to, under the item's mods */
+.pd2te-sum-line {
+  color: #e5c07b;
+  font-size: 13px;
+  margin-top: 0.35rem;
+}
+
+/* A mod only the socketed items give: dimmed like the site's own grey text */
+.property:has(> .pd2te-socket-only) > span:first-child {
+  color: #6b7280;
+}
+
+/* Livesearch watching other filters than the column shows */
+.pd2te-live-note {
+  margin: -0.25rem 0 0.25rem;
+}

@@ -1,0 +1,8 @@
+node_modules
+
+# Editor settings
+.vscode/*
+
+# Saved copies of the site's pages
+create.html
+website.html

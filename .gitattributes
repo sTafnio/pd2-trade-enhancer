@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# The committed build: collapsed in GitHub diffs
+dist/** linguist-generated
