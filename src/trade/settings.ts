@@ -8,6 +8,7 @@ export interface SettingsInterface {
   compactCards: boolean; // the site's compact card layout
   showQuery: boolean; // the compiled query under the Search button
   autoSortFilters: boolean; // keep the saved filters in name order on the server
+  localFilters: boolean; // saved filters in this browser, none on the server (filters/local-filters.ts)
 }
 
 export type NumberSettingKey = "delay" | "volume" | "pageSize";
@@ -17,7 +18,8 @@ export type BooleanSettingKey =
   | "cardTimes"
   | "compactCards"
   | "showQuery"
-  | "autoSortFilters";
+  | "autoSortFilters"
+  | "localFilters";
 
 const STORAGE_KEY = "pd2-trade-enhancer-settings";
 
@@ -32,6 +34,7 @@ export class Settings {
     compactCards: false,
     showQuery: false,
     autoSortFilters: false,
+    localFilters: false,
   };
 
   // delay in seconds, volume in percent
@@ -67,6 +70,7 @@ export class Settings {
       compactCards: flag("compactCards"),
       showQuery: flag("showQuery"),
       autoSortFilters: flag("autoSortFilters"),
+      localFilters: flag("localFilters"),
     };
   }
 

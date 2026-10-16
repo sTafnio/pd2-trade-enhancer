@@ -30,6 +30,7 @@ const checkboxes: [HTMLInputElement, BooleanSettingKey][] = [
   [inPanel<HTMLInputElement>("#cardTimesInput"), "cardTimes"],
   [inPanel<HTMLInputElement>("#showQueryInput"), "showQuery"],
   [inPanel<HTMLInputElement>("#autoSortFiltersInput"), "autoSortFilters"],
+  [inPanel<HTMLInputElement>("#localFiltersInput"), "localFilters"],
 ];
 
 // Fired on document after this panel saves a setting, so every listener re-reads localStorage instead of

@@ -8,6 +8,7 @@ import { Settings } from "../trade/settings";
 import { errorMessage, stableStringify } from "../utils";
 import { DEFAULT_SORT, cloneModel, compile, parse, sanitizeModel } from "./model";
 import type { CompileResult, FilterModel, SortSpec } from "./model";
+import { addLocalFilters, readLocalFilters, removeLocalFilter, storeLocalFilter } from "./local-filters";
 import { keyForNew, planSort, sortSavedFilters } from "./saved-order";
 import { fetchAllSavedFilters, getFilterService, readVocab, requireFilterService } from "./site";
 import type { SavedFilter, SiteFilters, SitePage, Vocab } from "./site";
@@ -27,6 +28,8 @@ const metadataOf = (saved: SavedFilter): FilterModel | null => {
   if (!isObject(meta) || meta.v !== METADATA_VERSION) return null;
   return sanitizeModel(meta.model);
 };
+
+const isLocal = () => Settings.getSettings().localFilters;
 
 const snapshot = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 
@@ -67,6 +70,7 @@ export class FilterController {
   private siteLoaded = false; // see searchIfSiteLoaded
   private knownCount = 0; // filters on the server as of our last full load
   private readonly unwatch: Unwatch[] = [];
+  private localLoadedId: string | null = null; // the loaded local filter ("Local filters" setting)
 
   constructor(site: SiteFilters, page: SitePage) {
     this.site = site;
@@ -90,11 +94,17 @@ export class FilterController {
 
   // In the server's order: the site asks for them sorted by their `order` key, and so do we
   savedFilters(): SavedFilter[] {
+    return isLocal() ? readLocalFilters() : [...this.page.savedFilters];
+  }
+
+  // The saved filters in the user's account, for copying them into local ones
+  serverFilters(): SavedFilter[] {
     return [...this.page.savedFilters];
   }
 
   // The saved filter the column holds: loaded, saved or opened from a ?filter= link last. Clear unsets it
   loadedFilter(): SavedFilter | null {
+    if (isLocal()) return (this.localLoadedId && readLocalFilters().find((filter) => filter._id === this.localLoadedId)) || null;
     const id = this.site.selectedFilterId;
     return (id && this.page.savedFilters.find((filter) => filter._id === id)) || null;
   }
@@ -114,7 +124,7 @@ export class FilterController {
 
   findByName(name: string, exceptId?: string): SavedFilter | null {
     const lower = name.trim().toLowerCase();
-    return this.page.savedFilters.find((filter) => filter._id !== exceptId && filter.name.toLowerCase() === lower) ?? null;
+    return this.savedFilters().find((filter) => filter._id !== exceptId && filter.name.toLowerCase() === lower) ?? null;
   }
 
   // What Save does with this name: overwrite a filter that already has it, else overwrite (and rename) the
@@ -155,15 +165,17 @@ export class FilterController {
 
   // The site's own Clear: keeps is_hardcore/is_ladder, drops the rest and the loaded filter; the watcher re-parses
   async clear() {
+    this.localLoadedId = null;
     await this.site.clearFilters();
   }
 
   // Loads and searches a saved filter, sort included, through our model: the search is what the column shows
   // (a filter the site saved has no `updated_at`, so the site's own Load searches the last 3 days only)
   load(id: string) {
-    const saved = this.page.savedFilters.find((filter) => filter._id === id);
+    const saved = this.savedFilters().find((filter) => filter._id === id);
     if (!saved) return;
-    this.site.selectedFilterId = id;
+    if (isLocal()) this.localLoadedId = id;
+    else this.site.selectedFilterId = id;
     this.model = metadataOf(saved) ?? this.siteSavedModel(saved);
     this.apply(true);
     this.onModel?.();
@@ -184,6 +196,12 @@ export class FilterController {
   }
 
   async remove(id: string) {
+    if (isLocal()) {
+      removeLocalFilter(id);
+      if (this.localLoadedId === id) this.localLoadedId = null;
+      this.onSavedFilters?.();
+      return;
+    }
     await requireFilterService().remove(id);
     const index = this.page.savedFilters.findIndex((filter) => filter._id === id);
     if (index >= 0) {
@@ -191,6 +209,25 @@ export class FilterController {
       this.page.savedFilters.splice(index, 1);
     }
     if (this.site.selectedFilterId === id) this.site.selectedFilterId = undefined;
+  }
+
+  // The account's saved filters as local ones (the server's stay as they are). Returns how many
+  copyServerFilters(): number {
+    const filters = this.serverFilters().map((saved) => ({
+      name: saved.name,
+      filters: snapshot(saved.filters),
+      pd2te: { v: METADATA_VERSION, model: metadataOf(saved) ?? this.siteSavedModel(saved) } satisfies Metadata,
+    }));
+    addLocalFilters(filters);
+    this.onSavedFilters?.();
+    return filters.length;
+  }
+
+  // "Local filters" was switched: the other list shows, nothing loaded from it yet
+  storeSwitched() {
+    this.localLoadedId = null;
+    if (!isLocal()) this.site.selectedFilterId = undefined;
+    this.onSavedFilters?.();
   }
 
   // Every saved filter from the server, in its order (the site asks for its first 100 only)
@@ -207,7 +244,7 @@ export class FilterController {
   // With "Sort filters A-Z" on: puts the list in name order on the server if anything is out of place.
   // Returns how many filters moved
   async sortIfWanted(): Promise<number> {
-    if (!Settings.getSettings().autoSortFilters) return 0;
+    if (!Settings.getSettings().autoSortFilters || isLocal()) return 0;
     const { moved } = await sortSavedFilters();
     if (moved > 0) await this.refreshSavedFilters();
     return moved;
@@ -250,6 +287,7 @@ export class FilterController {
 
   private async create(name: string): Promise<SavedFilter> {
     const data = this.saveData(name);
+    if (isLocal()) return this.afterLocalSave(storeLocalFilter(data));
     const list = this.page.savedFilters;
     const order = keyForNew(list, name, Settings.getSettings().autoSortFilters && planSort(list).length === 0);
     const saved = await requireFilterService().create(order === undefined ? data : { ...data, order });
@@ -260,8 +298,9 @@ export class FilterController {
   // $in, ...) in an update, and our form always has some. So new filters replace the saved filter with a new
   // one in the same place (its id, and so its ?filter= link, changes); a rename or a new sort is a patch
   private async overwrite(target: SavedFilter, name: string): Promise<SaveResult> {
-    const service = requireFilterService();
     const data = this.saveData(name);
+    if (isLocal()) return { saved: this.afterLocalSave(storeLocalFilter(data, target._id)) };
+    const service = requireFilterService();
     if (stableStringify(data.filters) === stableStringify(target.filters)) {
       return { saved: await this.afterSave(await service.patch(target._id, { name: data.name, pd2te: data.pd2te })) };
     }
@@ -275,6 +314,12 @@ export class FilterController {
       note = `the old "${target.name}" could not be deleted: ${errorMessage(error)}`;
     }
     return { saved: await this.afterSave(replacement), note };
+  }
+
+  private afterLocalSave(saved: SavedFilter): SavedFilter {
+    this.localLoadedId = saved._id;
+    this.onSavedFilters?.();
+    return saved;
   }
 
   // The list from the server, in name order if that's wanted. A failed sort doesn't fail the save

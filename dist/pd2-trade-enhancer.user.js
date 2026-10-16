@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         pd2-trade-enhancer
 // @namespace    https://github.com/sTafnio/pd2-trade-enhancer
-// @version      1.0.0
+// @version      1.1.0
 // @author       sTafnio
 // @description  Userscript to enhance the Project Diablo 2 trade website
 // @icon         https://projectdiablo2.com/image/portal.png
@@ -158,6 +158,14 @@
         </div>
         <div class="settings-option-container">
             <h2 class="settings-option-header">
+                Local filters</h2>
+            <div class="settings-option-input-container"> <input id="localFiltersInput"
+                    class="settings-option-checkbox" type="checkbox"
+                    title="Keep saved filters in this browser instead of your PD2 account: nothing is saved on the server. Not shared with other browsers or PCs; clearing the site's data deletes them">
+            </div>
+        </div>
+        <div class="settings-option-container">
+            <h2 class="settings-option-header">
                 Enhanced filters</h2>
             <div class="settings-option-input-container"> <input id="enhancedFiltersInput"
                     class="settings-option-checkbox" type="checkbox"
@@ -183,7 +191,7 @@
     </div>
 </div>
 `);
-	var STORAGE_KEY = "pd2-trade-enhancer-settings";
+	var STORAGE_KEY$1 = "pd2-trade-enhancer-settings";
 	var Settings = class Settings {
 		static DEFAULT_SETTINGS = {
 			delay: 25,
@@ -194,7 +202,8 @@
 			cardTimes: true,
 			compactCards: false,
 			showQuery: false,
-			autoSortFilters: false
+			autoSortFilters: false,
+			localFilters: false
 		};
 		static LIMITS = {
 			delay: {
@@ -230,12 +239,13 @@
 				cardTimes: flag("cardTimes"),
 				compactCards: flag("compactCards"),
 				showQuery: flag("showQuery"),
-				autoSortFilters: flag("autoSortFilters")
+				autoSortFilters: flag("autoSortFilters"),
+				localFilters: flag("localFilters")
 			};
 		}
 		static getSettings() {
 			try {
-				const storedSettings = localStorage.getItem(STORAGE_KEY);
+				const storedSettings = localStorage.getItem(STORAGE_KEY$1);
 				const parsed = storedSettings ? JSON.parse(storedSettings) : null;
 				return Settings.sanitizeAll(typeof parsed === "object" ? parsed : null);
 			} catch (error) {
@@ -245,7 +255,7 @@
 		}
 		static saveSettings(settings) {
 			try {
-				localStorage.setItem(STORAGE_KEY, JSON.stringify(Settings.sanitizeAll(settings)));
+				localStorage.setItem(STORAGE_KEY$1, JSON.stringify(Settings.sanitizeAll(settings)));
 			} catch (error) {
 				console.error("Error saving settings to localStorage:", error);
 			}
@@ -1868,7 +1878,8 @@
 		[inPanel("#compactCardsInput"), "compactCards"],
 		[inPanel("#cardTimesInput"), "cardTimes"],
 		[inPanel("#showQueryInput"), "showQuery"],
-		[inPanel("#autoSortFiltersInput"), "autoSortFilters"]
+		[inPanel("#autoSortFiltersInput"), "autoSortFilters"],
+		[inPanel("#localFiltersInput"), "localFilters"]
 	];
 	var SETTINGS_CHANGED_EVENT = "pd2te:settings-changed";
 	var announceSettingsChanged = () => document.dispatchEvent(new Event(SETTINGS_CHANGED_EVENT));
@@ -3707,6 +3718,43 @@
 		Object.keys(model).forEach((key) => delete model[key]);
 		Object.assign(model, fresh);
 	};
+	var STORAGE_KEY = "pd2te-local-filters";
+	var byName = (a, b) => a.name.localeCompare(b.name, void 0, { sensitivity: "base" });
+	var isSaved = (value) => typeof value === "object" && value !== null && typeof value._id === "string" && typeof value.name === "string" && typeof value.filters === "object" && value.filters !== null;
+	var readLocalFilters = () => {
+		try {
+			const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+			return Array.isArray(parsed) ? parsed.filter(isSaved).sort(byName) : [];
+		} catch {
+			return [];
+		}
+	};
+	var write = (list) => {
+		try {
+			localStorage.setItem(STORAGE_KEY, JSON.stringify([...list].sort(byName)));
+		} catch (error) {
+			throw new Error(`this browser refused to store it (${error instanceof Error ? error.message : String(error)})`);
+		}
+	};
+	var newId = () => `local-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+	var storeLocalFilter = (data, id) => {
+		const saved = {
+			...data,
+			_id: id ?? newId(),
+			updated_at: new Date().toISOString()
+		};
+		write([...readLocalFilters().filter((filter) => filter._id !== saved._id), saved]);
+		return saved;
+	};
+	var removeLocalFilter = (id) => write(readLocalFilters().filter((filter) => filter._id !== id));
+	var addLocalFilters = (filters) => {
+		const now = new Date().toISOString();
+		write([...readLocalFilters(), ...filters.map((data) => ({
+			...data,
+			_id: newId(),
+			updated_at: now
+		}))]);
+	};
 	var LOG$10 = "[pd2-trade-enhancer]";
 	var ZERO = 48;
 	var DIGITS = 75;
@@ -3877,6 +3925,7 @@
 		if (!isObject(meta) || meta.v !== METADATA_VERSION) return null;
 		return sanitizeModel(meta.model);
 	};
+	var isLocal = () => Settings.getSettings().localFilters;
 	var snapshot = (value) => JSON.parse(JSON.stringify(value));
 	var sortOf = (sort) => ({
 		field: typeof sort.field === "string" && sort.field !== "" ? sort.field : "bumped_at",
@@ -3907,6 +3956,7 @@
 		siteLoaded = false;
 		knownCount = 0;
 		unwatch = [];
+		localLoadedId = null;
 		constructor(site, page) {
 			this.site = site;
 			this.page = page;
@@ -3925,9 +3975,13 @@
 			return this.model;
 		}
 		savedFilters() {
+			return isLocal() ? readLocalFilters() : [...this.page.savedFilters];
+		}
+		serverFilters() {
 			return [...this.page.savedFilters];
 		}
 		loadedFilter() {
+			if (isLocal()) return this.localLoadedId && readLocalFilters().find((filter) => filter._id === this.localLoadedId) || null;
 			const id = this.site.selectedFilterId;
 			return id && this.page.savedFilters.find((filter) => filter._id === id) || null;
 		}
@@ -3941,7 +3995,7 @@
 		}
 		findByName(name, exceptId) {
 			const lower = name.trim().toLowerCase();
-			return this.page.savedFilters.find((filter) => filter._id !== exceptId && filter.name.toLowerCase() === lower) ?? null;
+			return this.savedFilters().find((filter) => filter._id !== exceptId && filter.name.toLowerCase() === lower) ?? null;
 		}
 		saveAction(rawName) {
 			const name = rawName.trim();
@@ -3985,12 +4039,14 @@
 			return this.apply(search);
 		}
 		async clear() {
+			this.localLoadedId = null;
 			await this.site.clearFilters();
 		}
 		load(id) {
-			const saved = this.page.savedFilters.find((filter) => filter._id === id);
+			const saved = this.savedFilters().find((filter) => filter._id === id);
 			if (!saved) return;
-			this.site.selectedFilterId = id;
+			if (isLocal()) this.localLoadedId = id;
+			else this.site.selectedFilterId = id;
 			this.model = metadataOf(saved) ?? this.siteSavedModel(saved);
 			this.apply(true);
 			this.onModel?.();
@@ -4008,6 +4064,12 @@
 			return { saved: await this.create(name) };
 		}
 		async remove(id) {
+			if (isLocal()) {
+				removeLocalFilter(id);
+				if (this.localLoadedId === id) this.localLoadedId = null;
+				this.onSavedFilters?.();
+				return;
+			}
 			await requireFilterService().remove(id);
 			const index = this.page.savedFilters.findIndex((filter) => filter._id === id);
 			if (index >= 0) {
@@ -4015,6 +4077,24 @@
 				this.page.savedFilters.splice(index, 1);
 			}
 			if (this.site.selectedFilterId === id) this.site.selectedFilterId = void 0;
+		}
+		copyServerFilters() {
+			const filters = this.serverFilters().map((saved) => ({
+				name: saved.name,
+				filters: snapshot(saved.filters),
+				pd2te: {
+					v: METADATA_VERSION,
+					model: metadataOf(saved) ?? this.siteSavedModel(saved)
+				}
+			}));
+			addLocalFilters(filters);
+			this.onSavedFilters?.();
+			return filters.length;
+		}
+		storeSwitched() {
+			this.localLoadedId = null;
+			if (!isLocal()) this.site.selectedFilterId = void 0;
+			this.onSavedFilters?.();
 		}
 		async loadAllSavedFilters() {
 			if (!getFilterService()) return;
@@ -4025,7 +4105,7 @@
 			}
 		}
 		async sortIfWanted() {
-			if (!Settings.getSettings().autoSortFilters) return 0;
+			if (!Settings.getSettings().autoSortFilters || isLocal()) return 0;
 			const { moved } = await sortSavedFilters();
 			if (moved > 0) await this.refreshSavedFilters();
 			return moved;
@@ -4069,6 +4149,7 @@
 		}
 		async create(name) {
 			const data = this.saveData(name);
+			if (isLocal()) return this.afterLocalSave(storeLocalFilter(data));
 			const list = this.page.savedFilters;
 			const order = keyForNew(list, name, Settings.getSettings().autoSortFilters && planSort(list).length === 0);
 			const saved = await requireFilterService().create(order === void 0 ? data : {
@@ -4078,8 +4159,9 @@
 			return this.afterSave(saved);
 		}
 		async overwrite(target, name) {
-			const service = requireFilterService();
 			const data = this.saveData(name);
+			if (isLocal()) return { saved: this.afterLocalSave(storeLocalFilter(data, target._id)) };
+			const service = requireFilterService();
 			if (stableStringify(data.filters) === stableStringify(target.filters)) return { saved: await this.afterSave(await service.patch(target._id, {
 				name: data.name,
 				pd2te: data.pd2te
@@ -4103,6 +4185,11 @@
 				saved: await this.afterSave(replacement),
 				note
 			};
+		}
+		afterLocalSave(saved) {
+			this.localLoadedId = saved._id;
+			this.onSavedFilters?.();
+			return saved;
 		}
 		async afterSave(saved) {
 			this.site.selectedFilterId = saved._id;
@@ -4715,11 +4802,14 @@
 		}
 	};
 	var autoSortWas = Settings.getSettings().autoSortFilters;
+	var localWas = Settings.getSettings().localFilters;
 	var applyFilterColumnSetting = () => {
 		const settings = Settings.getSettings();
 		if (!settings.enhancedFilters) unmountFilterColumn();
 		else if (isMarketPath()) mountFilterColumn();
 		if (controller$1) applyDisplaySettings(controller$1);
+		if (settings.localFilters !== localWas) controller$1?.storeSwitched();
+		localWas = settings.localFilters;
 		const sortTurnedOn = settings.autoSortFilters && !autoSortWas;
 		autoSortWas = settings.autoSortFilters;
 		if (sortTurnedOn && controller$1 && isMarketPath()) sortSavedIfWanted(controller$1);
@@ -4933,7 +5023,16 @@
 			title: "The filters differ from the loaded saved filter"
 		});
 		updateSavedMarker(ctrl);
-		return panel$1("saved", "My Filters", h("div", {}, row(chooser, remove), row(nameInput, save, saveNew), hint), true, savedMarker);
+		const local = Settings.getSettings().localFilters;
+		const serverCount = local && list.length === 0 ? ctrl.serverFilters().length : 0;
+		const copy = serverCount > 0 ? button$1(`Copy ${plural$1(serverCount, "filter")} from your account`, () => {
+			const copied = ctrl.copyServerFilters();
+			ui.status(`Copied ${plural$1(copied, "filter")} into this browser`);
+			refresh();
+		}) : null;
+		if (copy) copy.title = "Copies your account's saved filters into this browser; the ones on the server are not changed";
+		const body = h("div", {}, row(chooser, remove), row(nameInput, save, saveNew), hint, copy);
+		return panel$1("saved", local ? "My Filters (local)" : "My Filters", body, true, savedMarker);
 	});
 	var modeSection = (ui) => makeSection(() => {
 		const model = ui.ctrl.current;

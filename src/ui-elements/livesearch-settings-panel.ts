@@ -76,6 +76,14 @@ export const settingsPanel = html(/*html*/ `
         </div>
         <div class="settings-option-container">
             <h2 class="settings-option-header">
+                Local filters</h2>
+            <div class="settings-option-input-container"> <input id="localFiltersInput"
+                    class="settings-option-checkbox" type="checkbox"
+                    title="Keep saved filters in this browser instead of your PD2 account: nothing is saved on the server. Not shared with other browsers or PCs; clearing the site's data deletes them">
+            </div>
+        </div>
+        <div class="settings-option-container">
+            <h2 class="settings-option-header">
                 Enhanced filters</h2>
             <div class="settings-option-input-container"> <input id="enhancedFiltersInput"
                     class="settings-option-checkbox" type="checkbox"

@@ -287,6 +287,7 @@ const sortSavedIfWanted = async (ctrl: FilterController) => {
 };
 
 let autoSortWas = Settings.getSettings().autoSortFilters;
+let localWas = Settings.getSettings().localFilters;
 
 // A setting was flipped in the Settings panel: apply it without a reload
 const applyFilterColumnSetting = () => {
@@ -294,6 +295,8 @@ const applyFilterColumnSetting = () => {
   if (!settings.enhancedFilters) unmountFilterColumn();
   else if (isMarketPath()) mountFilterColumn();
   if (controller) applyDisplaySettings(controller);
+  if (settings.localFilters !== localWas) controller?.storeSwitched();
+  localWas = settings.localFilters;
   const sortTurnedOn = settings.autoSortFilters && !autoSortWas;
   autoSortWas = settings.autoSortFilters;
   if (sortTurnedOn && controller && isMarketPath()) void sortSavedIfWanted(controller);
@@ -545,8 +548,20 @@ const savedFiltersSection = (ui: Ui): Section =>
       title: "The filters differ from the loaded saved filter",
     });
     updateSavedMarker(ctrl);
-    const body = h("div", {}, row(chooser, remove), row(nameInput, save, saveNew), hint);
-    return panel("saved", "My Filters", body, true, savedMarker);
+    const local = Settings.getSettings().localFilters;
+    // Local filters start empty: the account's can be copied over once (they stay on the server as they are)
+    const serverCount = local && list.length === 0 ? ctrl.serverFilters().length : 0;
+    const copy =
+      serverCount > 0
+        ? button(`Copy ${plural(serverCount, "filter")} from your account`, () => {
+            const copied = ctrl.copyServerFilters();
+            ui.status(`Copied ${plural(copied, "filter")} into this browser`);
+            refresh();
+          })
+        : null;
+    if (copy) copy.title = "Copies your account's saved filters into this browser; the ones on the server are not changed";
+    const body = h("div", {}, row(chooser, remove), row(nameInput, save, saveNew), hint, copy);
+    return panel("saved", local ? "My Filters (local)" : "My Filters", body, true, savedMarker);
   });
 
 const modeSection = (ui: Ui): Section =>
