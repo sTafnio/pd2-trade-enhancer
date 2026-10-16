@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         pd2-trade-enhancer
 // @namespace    https://github.com/sTafnio/pd2-trade-enhancer
-// @version      1.1.0
+// @version      1.2.0
 // @author       sTafnio
 // @description  Userscript to enhance the Project Diablo 2 trade website
 // @icon         https://projectdiablo2.com/image/portal.png
@@ -27,7 +27,7 @@
 			else (document.head || document.documentElement).appendChild(document.createElement("style")).append(c);
 		})(t);
 	};
-	_css(".filters:has(>#filters){max-width:380px}#filters.pd2te-replaced>:not(.pd2te-own){display:none!important}.ls-btn{cursor:pointer;color:#000000bf;text-shadow:1px 1px #ffffff26;text-transform:uppercase;-webkit-text-stroke-color:#0f0f0f;-webkit-text-stroke-width:1px;border-bottom:3px solid #00000040;border-right:2px solid #00000040;border-radius:4px;justify-content:center;align-items:center;height:34px;margin-bottom:.5rem;padding:4px 8px;font-family:Diablo;font-size:20px;display:flex;position:relative;box-shadow:inset 1px 3px #ffffff1a}.start-btn{background-color:#0d8727}.start-btn:hover{background-color:#0d6e23}.stop-btn{background-color:#aa2800}.stop-btn:hover{background-color:#862000}.ls-controls{flex-direction:column;display:flex}.ls-status{color:#9ca3af;overflow-wrap:anywhere;text-align:center;margin:-.25rem 0 .75rem;font-size:13px;line-height:1.3}.ls-status[data-tone=warn]{color:#d4af37}.ls-status[data-tone=error]{color:#f87171}.pd2te-create-panel{flex-direction:column;gap:.5rem;margin-bottom:1rem;display:flex}.pd2te-create-row{align-items:center;gap:.5rem;display:flex}.pd2te-create-btn{min-width:120px;margin-bottom:0;font-size:16px}.pd2te-create-btn:disabled{cursor:not-allowed;opacity:.5}.pd2te-price-input{flex:.5 1 0;min-width:0;height:34px}.pd2te-create-panel .pd2te-create-status{text-align:left;flex:1;margin:0}.bump-button-container.pd2te-busy{opacity:.4;pointer-events:none}.settings-panel{color:#ffffffa6;background:#000000a6;border:2px solid #646464;margin-bottom:1.5rem;box-shadow:1px 3px 8px 2px #000000a6}.settings-panel-header{cursor:pointer;background-color:#00000059;justify-content:space-between;padding:6px 12px;display:flex}.settings-panel-heading{color:#ffffffbf;text-transform:uppercase;margin-right:.5rem;font-family:Diablo;font-size:20px;line-height:22px}.opened{border-bottom:2px solid #646464}.pd2te-hidden{display:none!important}.pd2te-invisible{visibility:hidden}.pd2te-holds-line:empty:before{content:\"\xA0\"}.settings-panel-svg{--tw-text-opacity:1;color:#9ca3af;width:1.5rem;margin-top:-.25rem}.settings-content{color:#d1d5db;flex-direction:column;gap:.5rem;padding:10px 12px;font-size:14px;display:flex}.name-container{text-align:center;flex-direction:column;margin-bottom:0;display:flex}.name-input{color:#d1d5db;text-align:center;background-color:#191919;border:1px solid #4b4b4b;border-radius:4px;padding:3px 6px;font-size:14px}.settings-option-container{align-items:center;display:flex}.settings-option-header{color:#9ca3af;letter-spacing:.02em;text-transform:uppercase;text-align:left;width:60%;font-family:Diablo;font-size:13px}.settings-option-input-container{text-align:center;flex-direction:column;width:40%;display:flex}.settings-option-input{appearance:none;color:#d1d5db;text-align:center;background-color:#191919;border:1px solid #4b4b4b;border-radius:4px;padding:3px 6px;font-size:14px}.settings-option-checkbox{cursor:pointer;align-self:center;width:15px;height:15px}.pd2te-gone .item,.pd2te-gone .meta>.flex:first-child{opacity:.45}.pd2te-gone-badge{color:#f87171;text-transform:uppercase;margin-left:.75rem;font-family:Diablo;font-size:13px}.pd2te-exchange-live{align-items:center;gap:.75rem;margin:.75rem 0 0 .5rem;display:flex}.pd2te-exchange-btn{min-width:140px;margin-bottom:0}.pd2te-exchange-info{flex-direction:column;min-width:0;font-size:13px;display:flex}.pd2te-exchange-watched{color:#d1d5db;overflow-wrap:anywhere}.pd2te-exchange-live .ls-status{text-align:left;margin:0}.recent-hits{border-top:2px solid #646464;padding:8px 12px;font-size:13px}.recent-hits-header{justify-content:space-between;align-items:center;display:flex}.recent-hits-clear{color:#9ca3af;cursor:pointer;text-transform:uppercase;font-size:14px}.recent-hits-clear:hover{color:#ffffffbf}.recent-hits-list{max-height:180px;font-size:14px;overflow-y:auto}.recent-hits-list a{color:#60a5fa;text-overflow:ellipsis;white-space:nowrap;display:block;overflow:hidden}.recent-hits-list a:hover{color:#2563eb}.bump-button-container{border:12px solid #0000;margin:-12px;display:inline-block}.bump-svg{--tw-text-opacity:1;color:#60a5fa;cursor:pointer;stroke-width:2px;stroke:currentColor;fill:none;width:1.5rem;margin-right:.5rem}.bump-svg:hover{color:#2563eb}.pd2te-filters{color:#d1d5db;flex-direction:column;gap:.5rem;font-size:14px;display:flex}.pd2te-toolbar{flex-direction:column;gap:.35rem;display:flex}.pd2te-toolbar .pd2te-row>.ls-btn{flex:1;margin-bottom:0}.pd2te-toolbar .pd2te-row>.pd2te-link-btn{color:#d1d5db;background-color:#3a3a3a;flex:none;width:42px;padding:0}.pd2te-toolbar .pd2te-row>.pd2te-link-btn:hover{color:#fff;background-color:#4b4b4b}.pd2te-link-btn svg{width:20px;height:20px}.pd2te-gold-btn{background-color:#b8860b}.pd2te-gold-btn:hover{background-color:#9a7009}.pd2te-panel{background:#000000a6;border:2px solid #646464;box-shadow:1px 3px 8px 2px #000000a6}.pd2te-panel-header{cursor:pointer;-webkit-user-select:none;user-select:none;background-color:#00000059;align-items:center;gap:.5rem;padding:6px 12px;display:flex}.pd2te-panel-header.open{border-bottom:2px solid #646464}.pd2te-panel-title{color:#ffffffbf;text-transform:uppercase;flex:1;font-family:Diablo;font-size:20px;line-height:22px}.pd2te-panel-toggle{color:#9ca3af;font-size:20px;line-height:1}.pd2te-panel-body{flex-direction:column;gap:.5rem;padding:10px 12px;display:flex}.pd2te-field{flex-direction:column;gap:.25rem;min-width:0;display:flex}.pd2te-label{color:#9ca3af;letter-spacing:.02em;text-align:center;text-transform:uppercase;font-family:Diablo;font-size:13px}.pd2te-row{align-items:center;gap:.35rem;display:flex}.pd2te-row>.pd2te-input{flex:1;min-width:0}.pd2te-grid2{grid-template-columns:repeat(2,minmax(0,1fr));gap:.35rem .5rem;display:grid}.pd2te-grid2>.pd2te-btn{grid-column:1/-1}.pd2te-input{color:#d1d5db;background-color:#191919;border:1px solid #4b4b4b;border-radius:4px;width:100%;padding:3px 6px;font-size:14px}.pd2te-input:focus{border-color:#9ca3af;outline:none}.pd2te-input.pd2te-invalid{border-color:#f87171}.pd2te-number{appearance:textfield;text-align:center}select.pd2te-input{cursor:pointer}textarea.pd2te-input{resize:vertical;min-height:90px;font-family:monospace;font-size:12px}.pd2te-btn{color:#d1d5db;cursor:pointer;white-space:nowrap;background-color:#2b2b2b;border:1px solid #4b4b4b;border-radius:4px;padding:3px 10px;font-size:14px}.pd2te-btn:hover{color:#fff;background-color:#3a3a3a}.pd2te-btn:disabled{cursor:default;opacity:.5}.pd2te-btn-small{padding:2px 8px}.pd2te-btn-danger{color:#f87171}.pd2te-check-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.15rem .5rem;display:grid}.pd2te-check{cursor:pointer;text-overflow:ellipsis;white-space:nowrap;align-items:center;gap:.35rem;min-width:0;display:flex;overflow:hidden}.pd2te-checkbox{cursor:pointer;flex:none;width:15px;height:15px}.pd2te-multi{flex-direction:column;gap:.35rem;display:flex}.pd2te-chips{flex-wrap:wrap;gap:.25rem;display:flex}.pd2te-chips:empty{display:none}.pd2te-chip{background-color:#1f2937;border:1px solid #374151;border-radius:999px;align-items:center;gap:.25rem;max-width:100%;padding:1px 4px 1px 8px;font-size:13px;display:inline-flex}.pd2te-chip-text{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.pd2te-chip-remove{color:#9ca3af;cursor:pointer;padding:0 3px;font-size:15px;line-height:1}.pd2te-chip-remove:hover{color:#f87171}.pd2te-picker{gap:.35rem;display:flex}.pd2te-picker-input{flex:1;min-width:0}.pd2te-mod{border:1px solid #374151;border-radius:4px;flex-direction:column;gap:.3rem;padding:6px;display:flex}.pd2te-mod-head{align-items:center;gap:.35rem;display:flex}.pd2te-mod-name{text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:13px;overflow:hidden}.pd2te-group{border:1px solid #4b5563;border-radius:4px;flex-direction:column;gap:.4rem;padding:8px;display:flex}.pd2te-group-head{flex-wrap:wrap;align-items:center;gap:.35rem;display:flex}.pd2te-group-head select{width:auto}.pd2te-sum-total{flex:1;min-width:0}.pd2te-sum-term{border:1px solid #374151;border-radius:4px;align-items:center;gap:.35rem;padding:4px 6px;display:flex}.pd2te-sum-times{color:#9ca3af;font-size:13px}.pd2te-input.pd2te-sum-weight{flex:0 0 4.5rem;width:4.5rem}.pd2te-spacer{flex:1}.pd2te-hint{color:#9ca3af;text-align:center;font-size:12px}.pd2te-preview{color:#9ca3af;white-space:pre-wrap;word-break:break-all;background-color:#0f0f0f;border:1px solid #4b4b4b;border-radius:4px;max-height:260px;margin:0;padding:6px;font-size:11px;overflow:auto}.pd2te-card-btn{margin-right:.5rem}.pd2te-item-filter{color:#d1d5db;background:#0000008c;border-top:2px solid #646464;flex-direction:column;gap:.5rem;padding:8px 12px;font-size:13px;display:flex}.pd2te-item-filter-head{justify-content:space-between;align-items:center;display:flex}.pd2te-item-filter-title{color:#ffffffbf;text-transform:uppercase;font-family:Diablo;font-size:18px}.pd2te-item-section{flex-direction:column;gap:.2rem;display:flex}.pd2te-item-row{align-items:center;gap:.5rem;display:flex}.pd2te-item-row .pd2te-check{white-space:normal;flex:1}.pd2te-item-row .pd2te-number{flex:none;width:72px}.pd2te-item-actions{flex-wrap:wrap;justify-content:flex-end}.pd2te-picker{position:relative}.pd2te-dropdown{z-index:60;background-color:#111;border:1px solid #4b4b4b;border-radius:4px;max-height:240px;font-size:13px;position:absolute;top:calc(100% + 2px);left:0;right:0;overflow-y:auto;box-shadow:0 6px 16px #0009}.pd2te-dropdown-row{cursor:pointer;text-overflow:ellipsis;white-space:nowrap;padding:3px 8px;overflow:hidden}.pd2te-dropdown-row:hover,.pd2te-dropdown-row.active{color:#fff;background-color:#374151}.pd2te-dropdown-note{color:#9ca3af;padding:3px 8px;font-size:12px}.pd2te-dropdown-row.pd2te-current{color:#d4af37}.pd2te-row>.pd2te-picker{flex:1;min-width:0}.pd2te-unsaved{color:#d4af37;white-space:nowrap;font-size:12px}.pd2te-filters-bar{color:#d1d5db;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;margin-bottom:1rem;font-size:14px;display:flex}.pd2te-filters-bar .ls-status{text-align:left;margin:0}.pd2te-autosort .drag-handle{display:none!important}.pd2te-card-times{color:#9ca3af;flex-wrap:wrap;align-items:center;gap:.25rem .75rem;font-size:13px;display:inline-flex}.pd2te-card-time:before{content:\"· \";color:#6b7280}.pd2te-socket-note{color:#9ca3af;white-space:nowrap;margin-left:.4rem;font-size:12px}.pd2te-sum-line{color:#e5c07b;margin-top:.35rem;font-size:13px}.property:has(>.pd2te-socket-only)>span:first-child{color:#6b7280}.pd2te-live-note{margin:-.25rem 0 .25rem}");
+	_css(".filters:has(>#filters){max-width:380px}#filters.pd2te-replaced>:not(.pd2te-own){display:none!important}.ls-btn{cursor:pointer;color:#000000bf;text-shadow:1px 1px #ffffff26;text-transform:uppercase;-webkit-text-stroke-color:#0f0f0f;-webkit-text-stroke-width:1px;border-bottom:3px solid #00000040;border-right:2px solid #00000040;border-radius:4px;justify-content:center;align-items:center;height:34px;margin-bottom:.5rem;padding:4px 8px;font-family:Diablo;font-size:20px;display:flex;position:relative;box-shadow:inset 1px 3px #ffffff1a}.start-btn{background-color:#0d8727}.start-btn:hover{background-color:#0d6e23}.stop-btn{background-color:#aa2800}.stop-btn:hover{background-color:#862000}.ls-controls{flex-direction:column;display:flex}.ls-status{color:#9ca3af;overflow-wrap:anywhere;text-align:center;margin:-.25rem 0 .75rem;font-size:13px;line-height:1.3}.ls-status[data-tone=warn]{color:#d4af37}.ls-status[data-tone=error]{color:#f87171}:root{--pd2te-create-col:124px;--pd2te-create-gap:.5rem;--pd2te-create-width:calc(3 * var(--pd2te-create-col) + 2 * var(--pd2te-create-gap))}.pd2te-create-panel{gap:var(--pd2te-create-gap);width:var(--pd2te-create-width);flex-direction:column;margin-bottom:1rem;display:flex}.pd2te-create-row{align-items:center;gap:var(--pd2te-create-gap);display:flex}.pd2te-create-btn{width:var(--pd2te-create-col);flex:none;margin-bottom:0;font-size:16px}.pd2te-create-btn:disabled{cursor:not-allowed;opacity:.5}.pd2te-price-input{flex:1 1 0;min-width:0;height:34px}.pd2te-note-input{height:34px}.pd2te-create-panel .pd2te-create-status{text-align:left;flex:1;margin:0}.bump-button-container.pd2te-busy{opacity:.4;pointer-events:none}.settings-panel{color:#ffffffa6;background:#000000a6;border:2px solid #646464;margin-bottom:1.5rem;box-shadow:1px 3px 8px 2px #000000a6}.settings-panel-header{cursor:pointer;background-color:#00000059;justify-content:space-between;padding:6px 12px;display:flex}.settings-panel-heading{color:#ffffffbf;text-transform:uppercase;margin-right:.5rem;font-family:Diablo;font-size:20px;line-height:22px}.opened{border-bottom:2px solid #646464}.pd2te-hidden{display:none!important}.pd2te-invisible{visibility:hidden}.pd2te-holds-line:empty:before{content:\"\xA0\"}.settings-panel-svg{--tw-text-opacity:1;color:#9ca3af;width:1.5rem;margin-top:-.25rem}.settings-content{color:#d1d5db;flex-direction:column;gap:.5rem;padding:10px 12px;font-size:14px;display:flex}.name-container{text-align:center;flex-direction:column;margin-bottom:0;display:flex}.name-input{color:#d1d5db;text-align:center;background-color:#191919;border:1px solid #4b4b4b;border-radius:4px;padding:3px 6px;font-size:14px}.settings-option-container{align-items:center;display:flex}.settings-option-header{color:#9ca3af;letter-spacing:.02em;text-transform:uppercase;text-align:left;width:60%;font-family:Diablo;font-size:13px}.settings-option-input-container{text-align:center;flex-direction:column;width:40%;display:flex}.settings-option-input{appearance:none;color:#d1d5db;text-align:center;background-color:#191919;border:1px solid #4b4b4b;border-radius:4px;padding:3px 6px;font-size:14px}.settings-option-checkbox{cursor:pointer;align-self:center;width:15px;height:15px}.pd2te-gone .item,.pd2te-gone .meta>.flex:first-child{opacity:.45}.pd2te-gone-badge{color:#f87171;text-transform:uppercase;margin-left:.75rem;font-family:Diablo;font-size:13px}.pd2te-exchange-live{align-items:center;gap:.75rem;margin:.75rem 0 0 .5rem;display:flex}.pd2te-exchange-btn{min-width:140px;margin-bottom:0}.pd2te-exchange-info{flex-direction:column;min-width:0;font-size:13px;display:flex}.pd2te-exchange-watched{color:#d1d5db;overflow-wrap:anywhere}.pd2te-exchange-live .ls-status{text-align:left;margin:0}.recent-hits{border-top:2px solid #646464;padding:8px 12px;font-size:13px}.recent-hits-header{justify-content:space-between;align-items:center;display:flex}.recent-hits-clear{color:#9ca3af;cursor:pointer;text-transform:uppercase;font-size:14px}.recent-hits-clear:hover{color:#ffffffbf}.recent-hits-list{max-height:180px;font-size:14px;overflow-y:auto}.recent-hits-list a{color:#60a5fa;text-overflow:ellipsis;white-space:nowrap;display:block;overflow:hidden}.recent-hits-list a:hover{color:#2563eb}.bump-button-container{border:12px solid #0000;margin:-12px;display:inline-block}.bump-svg{--tw-text-opacity:1;color:#60a5fa;cursor:pointer;stroke-width:2px;stroke:currentColor;fill:none;width:1.5rem;margin-right:.5rem}.bump-svg:hover{color:#2563eb}.pd2te-filters{color:#d1d5db;flex-direction:column;gap:.5rem;font-size:14px;display:flex}.pd2te-toolbar{flex-direction:column;gap:.35rem;display:flex}.pd2te-toolbar .pd2te-row>.ls-btn{flex:1;margin-bottom:0}.pd2te-toolbar .pd2te-row>.pd2te-link-btn{color:#d1d5db;background-color:#3a3a3a;flex:none;width:42px;padding:0}.pd2te-toolbar .pd2te-row>.pd2te-link-btn:hover{color:#fff;background-color:#4b4b4b}.pd2te-link-btn svg{width:20px;height:20px}.pd2te-gold-btn{background-color:#b8860b}.pd2te-gold-btn:hover{background-color:#9a7009}.pd2te-panel{background:#000000a6;border:2px solid #646464;box-shadow:1px 3px 8px 2px #000000a6}.pd2te-panel-header{cursor:pointer;-webkit-user-select:none;user-select:none;background-color:#00000059;align-items:center;gap:.5rem;padding:6px 12px;display:flex}.pd2te-panel-header.open{border-bottom:2px solid #646464}.pd2te-panel-title{color:#ffffffbf;text-transform:uppercase;flex:1;font-family:Diablo;font-size:20px;line-height:22px}.pd2te-panel-toggle{color:#9ca3af;font-size:20px;line-height:1}.pd2te-panel-body{flex-direction:column;gap:.5rem;padding:10px 12px;display:flex}.pd2te-field{flex-direction:column;gap:.25rem;min-width:0;display:flex}.pd2te-label{color:#9ca3af;letter-spacing:.02em;text-align:center;text-transform:uppercase;font-family:Diablo;font-size:13px}.pd2te-row{align-items:center;gap:.35rem;display:flex}.pd2te-row>.pd2te-input{flex:1;min-width:0}.pd2te-grid2{grid-template-columns:repeat(2,minmax(0,1fr));gap:.35rem .5rem;display:grid}.pd2te-grid2>.pd2te-btn{grid-column:1/-1}.pd2te-input{color:#d1d5db;background-color:#191919;border:1px solid #4b4b4b;border-radius:4px;width:100%;padding:3px 6px;font-size:14px}.pd2te-input:focus{border-color:#9ca3af;outline:none}.pd2te-input.pd2te-invalid{border-color:#f87171}.pd2te-number{appearance:textfield;text-align:center}select.pd2te-input{cursor:pointer}textarea.pd2te-input{resize:vertical;min-height:90px;font-family:monospace;font-size:12px}.pd2te-btn{color:#d1d5db;cursor:pointer;white-space:nowrap;background-color:#2b2b2b;border:1px solid #4b4b4b;border-radius:4px;padding:3px 10px;font-size:14px}.pd2te-btn:hover{color:#fff;background-color:#3a3a3a}.pd2te-btn:disabled{cursor:default;opacity:.5}.pd2te-btn-small{padding:2px 8px}.pd2te-btn-danger{color:#f87171}.pd2te-check-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.15rem .5rem;display:grid}.pd2te-check{cursor:pointer;text-overflow:ellipsis;white-space:nowrap;align-items:center;gap:.35rem;min-width:0;display:flex;overflow:hidden}.pd2te-checkbox{cursor:pointer;flex:none;width:15px;height:15px}.pd2te-multi{flex-direction:column;gap:.35rem;display:flex}.pd2te-chips{flex-wrap:wrap;gap:.25rem;display:flex}.pd2te-chips:empty{display:none}.pd2te-chip{background-color:#1f2937;border:1px solid #374151;border-radius:999px;align-items:center;gap:.25rem;max-width:100%;padding:1px 4px 1px 8px;font-size:13px;display:inline-flex}.pd2te-chip-text{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.pd2te-chip-remove{color:#9ca3af;cursor:pointer;padding:0 3px;font-size:15px;line-height:1}.pd2te-chip-remove:hover{color:#f87171}.pd2te-picker{gap:.35rem;display:flex}.pd2te-picker-input{flex:1;min-width:0}.pd2te-mod{border:1px solid #374151;border-radius:4px;flex-direction:column;gap:.3rem;padding:6px;display:flex}.pd2te-mod-head{align-items:center;gap:.35rem;display:flex}.pd2te-mod-name{text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:13px;overflow:hidden}.pd2te-group{border:1px solid #4b5563;border-radius:4px;flex-direction:column;gap:.4rem;padding:8px;display:flex}.pd2te-group-head{flex-wrap:wrap;align-items:center;gap:.35rem;display:flex}.pd2te-group-head select{width:auto}.pd2te-sum-total{flex:1;min-width:0}.pd2te-sum-term{border:1px solid #374151;border-radius:4px;align-items:center;gap:.35rem;padding:4px 6px;display:flex}.pd2te-sum-times{color:#9ca3af;font-size:13px}.pd2te-input.pd2te-sum-weight{flex:0 0 4.5rem;width:4.5rem}.pd2te-spacer{flex:1}.pd2te-hint{color:#9ca3af;text-align:center;font-size:12px}.pd2te-preview{color:#9ca3af;white-space:pre-wrap;word-break:break-all;background-color:#0f0f0f;border:1px solid #4b4b4b;border-radius:4px;max-height:260px;margin:0;padding:6px;font-size:11px;overflow:auto}.pd2te-card-btn{margin-right:.5rem}.pd2te-item-filter{color:#d1d5db;background:#0000008c;border-top:2px solid #646464;flex-direction:column;gap:.5rem;padding:8px 12px;font-size:13px;display:flex}.pd2te-item-filter-head{justify-content:space-between;align-items:center;display:flex}.pd2te-item-filter-title{color:#ffffffbf;text-transform:uppercase;font-family:Diablo;font-size:18px}.pd2te-item-section{flex-direction:column;gap:.2rem;display:flex}.pd2te-item-row{align-items:center;gap:.5rem;display:flex}.pd2te-item-row .pd2te-check{white-space:normal;flex:1}.pd2te-item-row .pd2te-number{flex:none;width:72px}.pd2te-item-actions{flex-wrap:wrap;justify-content:flex-end}.pd2te-picker{position:relative}.pd2te-dropdown{z-index:60;background-color:#111;border:1px solid #4b4b4b;border-radius:4px;max-height:240px;font-size:13px;position:absolute;top:calc(100% + 2px);left:0;right:0;overflow-y:auto;box-shadow:0 6px 16px #0009}.pd2te-dropdown-row{cursor:pointer;text-overflow:ellipsis;white-space:nowrap;padding:3px 8px;overflow:hidden}.pd2te-dropdown-row:hover,.pd2te-dropdown-row.active{color:#fff;background-color:#374151}.pd2te-dropdown-note{color:#9ca3af;padding:3px 8px;font-size:12px}.pd2te-dropdown-row.pd2te-current{color:#d4af37}.pd2te-row>.pd2te-picker{flex:1;min-width:0}.pd2te-unsaved{color:#d4af37;white-space:nowrap;font-size:12px}.pd2te-filters-bar{color:#d1d5db;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;margin-bottom:1rem;font-size:14px;display:flex}.pd2te-filters-bar .ls-status{text-align:left;margin:0}.pd2te-autosort .drag-handle{display:none!important}.pd2te-card-times{color:#9ca3af;flex-wrap:wrap;align-items:center;gap:.25rem .75rem;font-size:13px;display:inline-flex}.pd2te-card-time:before{content:\"· \";color:#6b7280}.pd2te-socket-note{color:#9ca3af;white-space:nowrap;margin-left:.4rem;font-size:12px}.pd2te-sum-line{color:#e5c07b;margin-top:.35rem;font-size:13px}.property:has(>.pd2te-socket-only)>span:first-child{color:#6b7280}.pd2te-live-note{margin:-.25rem 0 .25rem}");
 	var all = (selector, root = document) => [...root.querySelectorAll(selector)];
 	var IMPORTANT_ELEMENTS = [{
 		id: "filters",
@@ -191,7 +191,7 @@
     </div>
 </div>
 `);
-	var STORAGE_KEY$1 = "pd2-trade-enhancer-settings";
+	var STORAGE_KEY$2 = "pd2-trade-enhancer-settings";
 	var Settings = class Settings {
 		static DEFAULT_SETTINGS = {
 			delay: 25,
@@ -245,7 +245,7 @@
 		}
 		static getSettings() {
 			try {
-				const storedSettings = localStorage.getItem(STORAGE_KEY$1);
+				const storedSettings = localStorage.getItem(STORAGE_KEY$2);
 				const parsed = storedSettings ? JSON.parse(storedSettings) : null;
 				return Settings.sanitizeAll(typeof parsed === "object" ? parsed : null);
 			} catch (error) {
@@ -255,7 +255,7 @@
 		}
 		static saveSettings(settings) {
 			try {
-				localStorage.setItem(STORAGE_KEY$1, JSON.stringify(Settings.sanitizeAll(settings)));
+				localStorage.setItem(STORAGE_KEY$2, JSON.stringify(Settings.sanitizeAll(settings)));
 			} catch (error) {
 				console.error("Error saving settings to localStorage:", error);
 			}
@@ -325,7 +325,7 @@
 	};
 	document.addEventListener("visibilitychange", clearUnseenHits);
 	window.addEventListener("focus", clearUnseenHits);
-	var LOG$16 = "[pd2-trade-enhancer]";
+	var LOG$17 = "[pd2-trade-enhancer]";
 	var MARKET_ROUTE = "market.shop";
 	var DEFAULT_RESOLVE = { user: { in_game_account: true } };
 	var getRoot = () => document.getElementById("app");
@@ -424,7 +424,7 @@
 				} catch {}
 			};
 		} catch (error) {
-			console.warn(LOG$16, `Could not watch "${key}" on the market page.`, error);
+			console.warn(LOG$17, `Could not watch "${key}" on the market page.`, error);
 			return () => {};
 		}
 	};
@@ -439,7 +439,7 @@
 				if (stage === "found") listener.found(query, params);
 				else listener.failed(query, params, context.error);
 			} catch (error) {
-				console.error(LOG$16, `find ${stage} listener failed`, error);
+				console.error(LOG$17, `find ${stage} listener failed`, error);
 			}
 		});
 		return context;
@@ -449,7 +449,7 @@
 		const rewriter = pageRewriter;
 		if (!rewriter || !params || params.pd2 || !isObject(params.query)) return context;
 		const failed = (error) => {
-			console.error(LOG$16, "Changing the page's search failed; it goes out as the page built it.", error);
+			console.error(LOG$17, "Changing the page's search failed; it goes out as the page built it.", error);
 			return context;
 		};
 		try {
@@ -473,7 +473,7 @@
 				error: { find: [dispatch(subscribers, "failed")] }
 			});
 		} catch (error) {
-			console.warn(LOG$16, "Could not install the market/listing find hooks.", error);
+			console.warn(LOG$17, "Could not install the market/listing find hooks.", error);
 			return null;
 		}
 		findListeners.set(service, subscribers);
@@ -505,7 +505,7 @@
 				if (found.length === 1 && found[0]({ quality: "Unique" }, "item.")["item.quality.name"] === "Unique") return found[0];
 			}
 		} catch (error) {
-			console.warn(LOG$16, "Could not load the site's query builder.", error);
+			console.warn(LOG$17, "Could not load the site's query builder.", error);
 		}
 		return null;
 	};
@@ -548,14 +548,14 @@
 			console.error("Error showing desktop notification:", error);
 		}
 	};
-	var LOG$15 = "[pd2-trade-enhancer]";
+	var LOG$16 = "[pd2-trade-enhancer]";
 	var listingPath = (id) => `/market/listing/${id}`;
 	var listingIdFromHref = (href) => href?.match(/^\/market\/listing\/([^/?#]+)/)?.[1] ?? null;
 	var safely = (label, fn) => {
 		try {
 			fn();
 		} catch (error) {
-			console.error(LOG$15, `${label} failed`, error);
+			console.error(LOG$16, `${label} failed`, error);
 		}
 	};
 	var reportHits = (hits, { recent = true } = {}) => {
@@ -563,14 +563,14 @@
 		const time = new Date().toLocaleTimeString();
 		hits.forEach((hit) => {
 			const saved = hit.savedAt ? `(saved ${new Date(hit.savedAt).toLocaleTimeString()})` : "";
-			console.log(`${LOG$15} ${time} new listing:`, hit.name, hit.price ?? "", `${location.origin}${listingPath(hit.id)}`, saved);
+			console.log(`${LOG$16} ${time} new listing:`, hit.name, hit.price ?? "", `${location.origin}${listingPath(hit.id)}`, saved);
 		});
 		playNewItemSound();
 		if (recent) safely("Recent hits", () => addRecentHits(hits));
 		safely("Tab alert", () => notifyTabOfHits(hits.length));
 		if (Settings.getSettings().desktopNotifications) showDesktopNotification(hits);
 	};
-	var LOG$14 = "[pd2-trade-enhancer]";
+	var LOG$15 = "[pd2-trade-enhancer]";
 	var FIRST_PAGE_LIMIT = 50;
 	var MAX_PAGES = 5;
 	var OVERLAP_MS = 15e3;
@@ -668,14 +668,14 @@
 		const serverTime = newest ? timeOf(newest) : 0;
 		const floor = Date.now() - MAX_START_LAG_MS;
 		if (serverTime >= floor) {
-			console.info(LOG$14, `Watching saves after ${new Date(serverTime).toISOString()} (newest save on the market).`);
+			console.info(LOG$15, `Watching saves after ${new Date(serverTime).toISOString()} (newest save on the market).`);
 			return {
 				ok: true,
 				time: serverTime
 			};
 		}
 		const found = serverTime > 0 ? `was saved at ${new Date(serverTime).toISOString()}` : "could not be read";
-		console.warn(LOG$14, `The newest save on the market ${found}, more than ${MAX_START_LAG_MS / 6e4} min before this computer's clock (${new Date().toISOString()}). Watching saves after ${new Date(floor).toISOString()} instead. (A quiet market does this too; if listings keep showing up late, reload the page.)`);
+		console.warn(LOG$15, `The newest save on the market ${found}, more than ${MAX_START_LAG_MS / 6e4} min before this computer's clock (${new Date().toISOString()}). Watching saves after ${new Date(floor).toISOString()} instead. (A quiet market does this too; if listings keep showing up late, reload the page.)`);
 		return {
 			ok: true,
 			time: floor
@@ -699,7 +699,7 @@
 			if (value === null) return;
 			const startedAt = Number(value) || 0;
 			const since = startedAt > 0 ? ` (started ${clockTime(startedAt)})` : "";
-			console.warn(`${LOG$14} ${label}${since} ended when this page reloaded: a reload, or Firefox unloading the background tab to save memory (pinned tabs are unloaded last; about:config browser.tabs.unloadOnLowMemory turns it off).`);
+			console.warn(`${LOG$15} ${label}${since} ended when this page reloaded: a reload, or Firefox unloading the background tab to save memory (pinned tabs are unloaded last; about:config browser.tabs.unloadOnLowMemory turns it off).`);
 			status(`Not running: the page reloaded while livesearch was on${since}. Press ${resumeButton} to resume`, "warn");
 		}
 	});
@@ -725,7 +725,7 @@
 		const nextCheckText = () => `next ~${clockTime(Date.now() + nextWait())}`;
 		const onRateLimit = () => {
 			pausedUntil = Date.now() + RATE_LIMIT_PAUSE_MS;
-			console.warn(LOG$14, `The site reported a rate limit; pausing ${label.toLowerCase()} requests for 60 s.`);
+			console.warn(LOG$15, `The site reported a rate limit; pausing ${label.toLowerCase()} requests for 60 s.`);
 			status(`Rate limited by the site: paused until ${clockTime(pausedUntil)}`, "warn");
 		};
 		const socket = getSocket();
@@ -821,7 +821,7 @@
 			if (isRateLimitError(error)) pausedUntil = Math.max(pausedUntil, Date.now() + RATE_LIMIT_PAUSE_MS);
 			const message = errorMessage(error);
 			const wait = nextWait();
-			console.warn(LOG$14, `${label} check failed (${failures}x): ${message}. Retrying in ${Math.round(wait / 1e3)}s.`);
+			console.warn(LOG$15, `${label} check failed (${failures}x): ${message}. Retrying in ${Math.round(wait / 1e3)}s.`);
 			status(`Check failed (${failures}x): ${message} - retry ~${clockTime(Date.now() + wait)}`, "error");
 		};
 		const run = async () => {
@@ -873,11 +873,11 @@
 				}
 				failures = 0;
 				const fresh = absorb(outcome.rows, since).filter((row) => config.keep?.(search, row) ?? true);
-				if (outcome.truncated) console.warn(LOG$14, `More than ${outcome.rows.length} listings were saved since the last check; older ones may be missed.`);
+				if (outcome.truncated) console.warn(LOG$15, `More than ${outcome.rows.length} listings were saved since the last check; older ones may be missed.`);
 				if (fresh.length > 0) {
 					hitCount += fresh.length;
 					const saved = fresh.map(timeOf);
-					console.info(LOG$14, `${label} check after ${new Date(since).toISOString()}: ${fresh.length} new, saved ${new Date(Math.min(...saved)).toISOString()} .. ${new Date(Math.max(...saved)).toISOString()}.`);
+					console.info(LOG$15, `${label} check after ${new Date(since).toISOString()}: ${fresh.length} new, saved ${new Date(Math.min(...saved)).toISOString()} .. ${new Date(Math.max(...saved)).toISOString()}.`);
 					fresh.sort(newestFirst);
 					reportHits(fresh.map(config.toHit), { recent: config.recentHits });
 					tracker.addToFeed(await config.feedRows(find, search, fresh));
@@ -926,7 +926,7 @@
 			}
 		};
 	};
-	var LOG$13 = "[pd2-trade-enhancer]";
+	var LOG$14 = "[pd2-trade-enhancer]";
 	var STUCK_MS = 12e3;
 	var FEED_MAX = 50;
 	var EMPTY_RESULTS_TEXT = "no items match query";
@@ -984,20 +984,20 @@
 			const reason = error === null ? `no answer after ${STUCK_MS / 1e3}s` : errorMessage(error);
 			if (!entry.retried && !isRateLimitError(error) && getSocket()?.connected !== false && !config.hasUnsearchedEdits(page, searchedForm)) {
 				entry.retried = true;
-				console.warn(LOG$13, `The ${what} page's search failed (${reason}); searching again.`);
+				console.warn(LOG$14, `The ${what} page's search failed (${reason}); searching again.`);
 				config.status(`The page's search failed (${reason}): searching again`, "warn");
 				entry.recovering = true;
 				try {
 					config.refetch(page);
 				} catch (fetchError) {
-					console.warn(LOG$13, `Retrying the ${what} page's search failed.`, fetchError);
+					console.warn(LOG$14, `Retrying the ${what} page's search failed.`, fetchError);
 				} finally {
 					entry.recovering = false;
 				}
 				armWatchdog(entry);
 				return;
 			}
-			console.warn(LOG$13, `The ${what} page's search failed (${reason}); showing the previous results.`);
+			console.warn(LOG$14, `The ${what} page's search failed (${reason}); showing the previous results.`);
 			config.status(`The page's search failed (${reason}): showing the previous results`, "warn");
 			page.loading = false;
 		};
@@ -1539,7 +1539,7 @@
 		if (isNumber(raw.max)) spec.max = raw.max;
 		return spec;
 	};
-	var LOG$12 = "[pd2-trade-enhancer]";
+	var LOG$13 = "[pd2-trade-enhancer]";
 	var LIVESEARCH_CHANGED_EVENT = "pd2te:livesearch-changed";
 	var watchedFilters = null;
 	var getWatchedFilters = () => watchedFilters;
@@ -1614,7 +1614,7 @@
 	};
 	var passesOwnStats = (search, listing) => {
 		if (!search.ownStats || ownStillMatches(listing, search.base)) return true;
-		console.info(LOG$12, `Livesearch left out ${toHit$1(listing).name} (${location.origin}${listingPath(listing._id)}): it meets the search only with its socketed items' stats.`);
+		console.info(LOG$13, `Livesearch left out ${toHit$1(listing).name} (${location.origin}${listingPath(listing._id)}): it meets the search only with its socketed items' stats.`);
 		return false;
 	};
 	var passesSums = (search, listing) => {
@@ -1622,7 +1622,7 @@
 		const results = itemSums(listing.item, search.sums, isOwnSearch(search.base));
 		if (reachesAll(search.sums, results)) return true;
 		const totals = results.map((result) => formatAmount(result.total)).join(", ");
-		console.info(LOG$12, `Livesearch left out ${toHit$1(listing).name} (${location.origin}${listingPath(listing._id)}): its sum comes to ${totals}.`);
+		console.info(LOG$13, `Livesearch left out ${toHit$1(listing).name} (${location.origin}${listingPath(listing._id)}): its sum comes to ${totals}.`);
 		return false;
 	};
 	var formSignatureOf = (form) => form ? stableStringify(form) : null;
@@ -1667,7 +1667,7 @@
 					const rows = outcome.result.data ?? [];
 					if (shapeIndex === 0 && rows.some((row) => isListing(row) && !row.item)) {
 						shapeIndex = 1;
-						console.warn(LOG$12, "The trimmed $select returned no item names; selecting whole items instead.");
+						console.warn(LOG$13, "The trimmed $select returned no item names; selecting whole items instead.");
 						continue;
 					}
 					shapeConfirmed = true;
@@ -1676,7 +1676,7 @@
 				const canStepDown = !shapeConfirmed && shapeIndex < RESPONSE_SHAPES.length - 1;
 				if (outcome.aborted || !canStepDown || !isQueryShapeError(outcome.error)) return outcome;
 				shapeIndex++;
-				console.warn(LOG$12, `The site rejected the trimmed query (${errorMessage(outcome.error)}); retrying with a fuller one.`);
+				console.warn(LOG$13, `The site rejected the trimmed query (${errorMessage(outcome.error)}); retrying with a fuller one.`);
 			}
 		};
 		const feedRows = async (find, search, hits) => {
@@ -1691,18 +1691,18 @@
 					$limit: ids.length
 				});
 				if (!outcome.ok) {
-					if (!outcome.aborted) console.warn(LOG$12, `Could not load the new listings for the feed: ${errorMessage(outcome.error)}`);
+					if (!outcome.aborted) console.warn(LOG$13, `Could not load the new listings for the feed: ${errorMessage(outcome.error)}`);
 					break;
 				}
 				const rows = (outcome.result.data ?? []).filter(isListing);
 				const unasked = rows.filter((row) => !wanted.has(row._id)).length;
-				if (unasked > 0) console.warn(LOG$12, `Asked the site for ${ids.length} listings by id and got ${unasked} others; leaving those out of the feed.`);
+				if (unasked > 0) console.warn(LOG$13, `Asked the site for ${ids.length} listings by id and got ${unasked} others; leaving those out of the feed.`);
 				rows.forEach((row) => {
 					if (wanted.has(row._id)) byId.set(row._id, row);
 				});
 			}
 			const full = hits.map((hit) => byId.get(hit._id)).filter((row) => row !== void 0);
-			if (full.length < hits.length) console.warn(LOG$12, `${hits.length - full.length} of ${hits.length} new listings could not be loaded for the feed (see Recent Hits).`);
+			if (full.length < hits.length) console.warn(LOG$13, `${hits.length - full.length} of ${hits.length} new listings could not be loaded for the feed (see Recent Hits).`);
 			return full;
 		};
 		loop = createPollLoop({
@@ -1767,12 +1767,12 @@
 				try {
 					filters.search();
 				} catch (error) {
-					console.warn(LOG$12, "Calling the page's search() failed.", error);
+					console.warn(LOG$13, "Calling the page's search() failed.", error);
 					return false;
 				}
 				if (await loop.waitForSearch(8e3)) return true;
 			}
-			if (!signal.aborted) console.warn(LOG$12, "The page's search never reached the market/listing find hook.");
+			if (!signal.aborted) console.warn(LOG$13, "The page's search never reached the market/listing find hook.");
 			return false;
 		};
 		const offFind = onPageFind({
@@ -1801,7 +1801,7 @@
 			loop.release();
 		}
 	};
-	var LOG$11 = "[pd2-trade-enhancer]";
+	var LOG$12 = "[pd2-trade-enhancer]";
 	var marker$1 = createRunMarker("pd2te-livesearch-running", "Livesearch", "Start");
 	var run = null;
 	var isLivesearchRunning = () => run !== null;
@@ -1841,17 +1841,17 @@
 		try {
 			const problem = probeBridge();
 			if (problem !== null) {
-				console.warn(`${LOG$11} Livesearch can't start: ${problem}.`);
+				console.warn(`${LOG$12} Livesearch can't start: ${problem}.`);
 				current.finalStatus ??= ["Can't start: the site's app isn't reachable (see console)", "error"];
 				return;
 			}
-			console.info(`${LOG$11} Livesearch started.`);
+			console.info(`${LOG$12} Livesearch started.`);
 			if (await runApiLivesearch(signal) === "unavailable" && !signal.aborted) {
-				console.warn(`${LOG$11} Livesearch stopped: the page's search never reached the site's API client.`);
+				console.warn(`${LOG$12} Livesearch stopped: the page's search never reached the site's API client.`);
 				current.finalStatus ??= ["Stopped: couldn't capture the page's search (see console)", "error"];
 			}
 		} catch (error) {
-			console.error(`${LOG$11} Livesearch stopped after an error:`, error);
+			console.error(`${LOG$12} Livesearch stopped after an error:`, error);
 			current.finalStatus ??= [`Stopped: ${errorMessage(error)} (see console)`, "error"];
 		} finally {
 			controller.abort();
@@ -1861,7 +1861,7 @@
 				showStartButton();
 				setStatus$2(...current.finalStatus ?? ["Stopped", "info"]);
 			}
-			console.info(`${LOG$11} Livesearch stopped.`);
+			console.info(`${LOG$12} Livesearch stopped.`);
 		}
 	};
 	var MAX_RECENT_HITS = 50;
@@ -3718,12 +3718,12 @@
 		Object.keys(model).forEach((key) => delete model[key]);
 		Object.assign(model, fresh);
 	};
-	var STORAGE_KEY = "pd2te-local-filters";
+	var STORAGE_KEY$1 = "pd2te-local-filters";
 	var byName = (a, b) => a.name.localeCompare(b.name, void 0, { sensitivity: "base" });
 	var isSaved = (value) => typeof value === "object" && value !== null && typeof value._id === "string" && typeof value.name === "string" && typeof value.filters === "object" && value.filters !== null;
 	var readLocalFilters = () => {
 		try {
-			const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+			const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY$1) ?? "[]");
 			return Array.isArray(parsed) ? parsed.filter(isSaved).sort(byName) : [];
 		} catch {
 			return [];
@@ -3731,7 +3731,7 @@
 	};
 	var write = (list) => {
 		try {
-			localStorage.setItem(STORAGE_KEY, JSON.stringify([...list].sort(byName)));
+			localStorage.setItem(STORAGE_KEY$1, JSON.stringify([...list].sort(byName)));
 		} catch (error) {
 			throw new Error(`this browser refused to store it (${error instanceof Error ? error.message : String(error)})`);
 		}
@@ -3755,7 +3755,7 @@
 			updated_at: now
 		}))]);
 	};
-	var LOG$10 = "[pd2-trade-enhancer]";
+	var LOG$11 = "[pd2-trade-enhancer]";
 	var ZERO = 48;
 	var DIGITS = 75;
 	var PATCH_GAP_MS = 200;
@@ -3877,7 +3877,7 @@
 		} catch (error) {
 			if (attempt >= MAX_ATTEMPTS || signal.aborted || !retryable(error)) throw error;
 			if (isRateLimitError(error)) {
-				console.warn(LOG$10, `Rate limited while sorting the saved filters; waiting ${RATE_LIMIT_WAIT_MS$1 / 1e3}s.`);
+				console.warn(LOG$11, `Rate limited while sorting the saved filters; waiting ${RATE_LIMIT_WAIT_MS$1 / 1e3}s.`);
 				await sleep(RATE_LIMIT_WAIT_MS$1, signal);
 				if (signal.aborted) throw new Error("stopped while waiting out a rate limit: you left the page");
 			}
@@ -3918,7 +3918,7 @@
 	var stopFilterSortOffPage = () => {
 		if (running$1 && pagePath() !== running$1.path) running$1.controller.abort();
 	};
-	var LOG$9 = "[pd2-trade-enhancer]";
+	var LOG$10 = "[pd2-trade-enhancer]";
 	var METADATA_VERSION = 1;
 	var metadataOf = (saved) => {
 		const meta = saved.pd2te;
@@ -4101,7 +4101,7 @@
 			try {
 				await this.refreshSavedFilters();
 			} catch (error) {
-				console.warn(LOG$9, "Could not load all saved filters.", error);
+				console.warn(LOG$10, "Could not load all saved filters.", error);
 			}
 		}
 		async sortIfWanted() {
@@ -4178,7 +4178,7 @@
 			try {
 				await service.remove(target._id);
 			} catch (error) {
-				console.warn(LOG$9, `Saved "${name}" as a new filter; the old one could not be deleted.`, error);
+				console.warn(LOG$10, `Saved "${name}" as a new filter; the old one could not be deleted.`, error);
 				note = `the old "${target.name}" could not be deleted: ${errorMessage(error)}`;
 			}
 			return {
@@ -4197,7 +4197,7 @@
 				await this.refreshSavedFilters();
 				await this.sortIfWanted();
 			} catch (error) {
-				console.warn(LOG$9, "Saved, but the saved filters could not be reloaded or sorted.", error);
+				console.warn(LOG$10, "Saved, but the saved filters could not be reloaded or sorted.", error);
 			}
 			return saved;
 		}
@@ -4349,7 +4349,7 @@
 		const page = installed?.page;
 		if (page && !page.$.isUnmounted && !page.noFilters && !page.loading) page.fetch();
 	});
-	var LOG$8 = "[pd2-trade-enhancer]";
+	var LOG$9 = "[pd2-trade-enhancer]";
 	var SOCKETED_CHECK_EVENT = "pd2te:socketed-check";
 	var HASH = "item.hash";
 	var PER_REQUEST$1 = new Set([
@@ -4443,14 +4443,14 @@
 		};
 		last$1 = current;
 		return current.result.then(({ hashes, checked, excluded }) => {
-			if (hashes.length > 0 && !leaveOut(query, hashes)) console.warn(LOG$8, "The search asks for one item hash already: listings that fall short without their socketed items stay in.");
+			if (hashes.length > 0 && !leaveOut(query, hashes)) console.warn(LOG$9, "The search asks for one item hash already: listings that fall short without their socketed items stay in.");
 			if (!reused) report$1({
 				checked,
 				excluded
 			});
 		}, (error) => {
 			if (last$1 === current) last$1 = null;
-			console.warn(LOG$8, `Couldn't re-check the listings with socketed items (${errorMessage(error)}); searching without leaving any out.`);
+			console.warn(LOG$9, `Couldn't re-check the listings with socketed items (${errorMessage(error)}); searching without leaving any out.`);
 			if (!reused) report$1({
 				checked: 0,
 				excluded: 0,
@@ -4458,7 +4458,7 @@
 			});
 		});
 	};
-	var LOG$7 = "[pd2-trade-enhancer]";
+	var LOG$8 = "[pd2-trade-enhancer]";
 	var SUMS_CHECK_EVENT = "pd2te:sums-check";
 	var PER_REQUEST = new Set([
 		"$skip",
@@ -4570,7 +4570,7 @@
 		if (query.$select !== void 0) pageQuery.$select = query.$select;
 		const outcome = await timed(PAGE_TIMEOUT_MS, (signal) => findOnce(requireService(), pageQuery, signal));
 		if (!outcome.ok) {
-			console.warn(LOG$7, `Couldn't load this page in sum order (${errorMessage(outcome.error)}); showing it in the server's order.`);
+			console.warn(LOG$8, `Couldn't load this page in sum order (${errorMessage(outcome.error)}); showing it in the server's order.`);
 			return null;
 		}
 		const byId = new Map((outcome.result.data ?? []).map((row) => [row._id, row]));
@@ -4605,7 +4605,7 @@
 			onlyIds(query, scanned.ranked.map((entry) => entry.id));
 		}, (error) => {
 			if (last === current) last = null;
-			console.warn(LOG$7, `Couldn't add up the sums (${errorMessage(error)}); the search shows nothing.`);
+			console.warn(LOG$8, `Couldn't add up the sums (${errorMessage(error)}); the search shows nothing.`);
 			if (!reused) report({
 				candidates: 0,
 				matched: 0,
@@ -4614,7 +4614,7 @@
 			onlyIds(query, []);
 		});
 	};
-	var LOG$6 = "[pd2-trade-enhancer]";
+	var LOG$7 = "[pd2-trade-enhancer]";
 	var SOCKET_COUNTS = [
 		"0",
 		"1",
@@ -4692,10 +4692,10 @@
 			applyDisplaySettings(ctrl);
 			ctrl.loadAllSavedFilters().then(() => sortSavedIfWanted(ctrl));
 			applyLinkedSearch(ctrl);
-			console.info(`${LOG$6} Filter column mounted: ${ctrl.vocab.properties.length} properties, ${ctrl.vocab.types.length} item types.`);
+			console.info(`${LOG$7} Filter column mounted: ${ctrl.vocab.properties.length} properties, ${ctrl.vocab.types.length} item types.`);
 			return "mounted";
 		} catch (error) {
-			console.error(`${LOG$6} The filter column failed to build; the site's own panels stay. Turn "Enhanced filters" off in Settings to stop trying.`, error);
+			console.error(`${LOG$7} The filter column failed to build; the site's own panels stay. Turn "Enhanced filters" off in Settings to stop trying.`, error);
 			unmountFilterColumn();
 			return "failed";
 		}
@@ -4725,7 +4725,7 @@
 		const linked = takeLinkedSearch();
 		if (linked === null) return;
 		if (linked === "invalid") {
-			console.warn(`${LOG$6} The #pd2te= link in the URL couldn't be read; it was probably cut short when copied.`);
+			console.warn(`${LOG$7} The #pd2te= link in the URL couldn't be read; it was probably cut short when copied.`);
 			setStatus$1("The shared search link couldn't be read (cut short when copied?)", "error");
 			return;
 		}
@@ -4820,7 +4820,7 @@
 		try {
 			renderSections(ctrl);
 		} catch (error) {
-			console.error(`${LOG$6} The filter column failed to render; showing the site's own panels.`, error);
+			console.error(`${LOG$7} The filter column failed to render; showing the site's own panels.`, error);
 			unmountFilterColumn();
 		}
 	};
@@ -5405,11 +5405,11 @@
 			text: "A JSON object of query keys merged into the search. A $or here becomes another OR group. Anything a loaded filter has that the panels can't show ends up here."
 		}), textarea), model.custom.trim() !== "");
 	});
-	var LOG$5 = "[pd2-trade-enhancer]";
+	var LOG$6 = "[pd2-trade-enhancer]";
 	var installSearchChecks = () => {
-		if (!setPageQueryRewriter((query) => sumRewrite(query) ?? socketedRewrite(query))) console.warn(`${LOG$5} Couldn't hook the page's search: sums and "Ignore socketed jewels/runes" won't narrow the results.`);
+		if (!setPageQueryRewriter((query) => sumRewrite(query) ?? socketedRewrite(query))) console.warn(`${LOG$6} Couldn't hook the page's search: sums and "Ignore socketed jewels/runes" won't narrow the results.`);
 	};
-	var LOG$4 = "[pd2-trade-enhancer]";
+	var LOG$5 = "[pd2-trade-enhancer]";
 	var bridgeChecked = false;
 	var warnedIds = new Set();
 	var tradeOnLoad = () => {
@@ -5418,7 +5418,7 @@
 		if (!document.getElementById("filters")) return;
 		mountLivesearchUi();
 		forceNewestFirstSort();
-		if (mountFilterColumn() === "failed") console.warn(`${LOG$4} The enhanced filter column could not be mounted (see above): keeping the site's own filter column.`);
+		if (mountFilterColumn() === "failed") console.warn(`${LOG$5} The enhanced filter column could not be mounted (see above): keeping the site's own filter column.`);
 		installSearchChecks();
 		checkBridgeOnce();
 		onMarketPageMounted();
@@ -5432,7 +5432,7 @@
 			}
 			if (warnedIds.has(id)) return;
 			warnedIds.add(id);
-			console.warn(`${LOG$4} #${id}: expected ${expected} match(es), found ${matches.length}. Site layout changed? Not tagged.`);
+			console.warn(`${LOG$5} #${id}: expected ${expected} match(es), found ${matches.length}. Site layout changed? Not tagged.`);
 		});
 	};
 	var checkBridgeOnce = () => {
@@ -5440,11 +5440,11 @@
 		bridgeChecked = true;
 		const problem = probeBridge();
 		if (problem !== null) {
-			console.warn(`${LOG$4} Livesearch won't be able to start: ${problem}.`);
+			console.warn(`${LOG$5} Livesearch won't be able to start: ${problem}.`);
 			return;
 		}
-		console.info(`${LOG$4} Site app and API client reachable: livesearch will poll the API.`);
-		getQueryBuilder().then((build) => console.info(build ? `${LOG$4} Found the site's query builder: Start builds the query from the filter panel.` : `${LOG$4} The site's query builder wasn't found: Start runs the page's search to capture the query.`));
+		console.info(`${LOG$5} Site app and API client reachable: livesearch will poll the API.`);
+		getQueryBuilder().then((build) => console.info(build ? `${LOG$5} Found the site's query builder: Start builds the query from the filter panel.` : `${LOG$5} The site's query builder wasn't found: Start runs the page's search to capture the query.`));
 	};
 	var forceNewestFirstSort = () => {
 		const filters = getMarketFilters();
@@ -5468,7 +5468,7 @@
 			return null;
 		}
 	};
-	var LOG$3 = "[pd2-trade-enhancer]";
+	var LOG$4 = "[pd2-trade-enhancer]";
 	var REQUEST_TIMEOUT_MS = 15e3;
 	var RECONNECT_WAIT_MS = 6e4;
 	var RATE_LIMIT_WAIT_MS = 3e4;
@@ -5541,7 +5541,7 @@
 			const result = await callOnce(send);
 			if (result.ok || attempt >= MAX_SEND_ATTEMPTS) return result;
 			if (result.kind === "rateLimited") {
-				console.warn(LOG$3, `Rate limited by the site; waiting ${RATE_LIMIT_WAIT_MS / 1e3}s before trying again.`);
+				console.warn(LOG$4, `Rate limited by the site; waiting ${RATE_LIMIT_WAIT_MS / 1e3}s before trying again.`);
 				await sleep(RATE_LIMIT_WAIT_MS);
 			} else if (result.kind !== "offline") return result;
 		}
@@ -5576,7 +5576,7 @@
 		try {
 			return await fetchMyListings();
 		} catch (error) {
-			console.warn(LOG$3, "Could not re-read your listings to check what happened.", error);
+			console.warn(LOG$4, "Could not re-read your listings to check what happened.", error);
 			return null;
 		}
 	};
@@ -5696,7 +5696,7 @@
 			message: `${name}: the delete did not go through (${errorMessage(removed.error)})`
 		};
 	};
-	var LOG$2 = "[pd2-trade-enhancer]";
+	var LOG$3 = "[pd2-trade-enhancer]";
 	var ITEM_GAP_MS = 1500;
 	var running = null;
 	var isCreateActionRunning = () => running !== null;
@@ -5712,7 +5712,7 @@
 		try {
 			getCreatePage()?.fetchListings();
 		} catch (error) {
-			console.warn(LOG$2, "Could not refresh the page's listings.", error);
+			console.warn(LOG$3, "Could not refresh the page's listings.", error);
 		}
 	};
 	var runExclusive = async (label, body) => {
@@ -5729,7 +5729,7 @@
 		try {
 			await body(current.control);
 		} catch (error) {
-			console.error(LOG$2, `${label} stopped after an error:`, error);
+			console.error(LOG$3, `${label} stopped after an error:`, error);
 			setCreateStatus(`${label} stopped: ${errorMessage(error)}`, "error");
 			alert(`pd2-trade-enhancer: ${label} stopped after an error: ${errorMessage(error)}\nPlease check your listings.`);
 		} finally {
@@ -5754,7 +5754,7 @@
 			else if (outcome.severity === "skip") skipped.push(outcome.message);
 			else {
 				failure = outcome.message;
-				console.error(LOG$2, `${label}: ${outcome.message}`);
+				console.error(LOG$3, `${label}: ${outcome.message}`);
 				break;
 			}
 			if (i < jobs.length - 1 && !control.stopRequested) await sleep(ITEM_GAP_MS);
@@ -5764,8 +5764,8 @@
 		if (failure) parts.push(`stopped: ${failure}`);
 		const summary = `${label}: ${parts.join(", ")}`;
 		setCreateStatus(summary, failure ? "error" : skipped.length > 0 ? "warn" : "info");
-		console.info(LOG$2, summary);
-		skipped.forEach((note) => console.warn(LOG$2, `${label} skipped: ${note}`));
+		console.info(LOG$3, summary);
+		skipped.forEach((note) => console.warn(LOG$3, `${label} skipped: ${note}`));
 		return !failure && !control.stopRequested;
 	};
 	var needStashView = () => {
@@ -5873,7 +5873,7 @@
 				setCreateStatus(overLimit > 0 ? `Price Tab: the 50-listing limit is reached` : "Price Tab: no items on this tab");
 				return;
 			}
-			if (overLimit > 0) console.warn(LOG$2, `Price Tab: ${overLimit} items won't be listed (50-listing limit, you have ${all.length}).`);
+			if (overLimit > 0) console.warn(LOG$3, `Price Tab: ${overLimit} items won't be listed (50-listing limit, you have ${all.length}).`);
 			const price = { text };
 			if (await runJobs("Price Tab", [...listed.map((listing) => ({
 				name: itemName(listing.item),
@@ -5939,8 +5939,71 @@
 		const slot = card.querySelector(".meta > .flex") ?? card.querySelector(".meta");
 		if (slot && filterButton.parentElement !== slot) slot.append(filterButton);
 	};
+	var MANAGE_ROUTE = "market.manage";
+	var isManagePage = (proxy) => isObject(proxy) && Array.isArray(proxy.listings) && hasFunctions(proxy, "fetch", "bumpAll", "updateListing", "$watch");
+	var isListingCard = (proxy) => isObject(proxy) && isObject(proxy.listing) && typeof proxy.listing._id === "string" && "showBump" in proxy && "showActionNotification" in proxy;
+	var getManagePage = () => getRouteComponent(MANAGE_ROUTE, "PageGameMarketManage", isManagePage);
+	var getListingCards = (page) => findAllComponents(page.$.subTree, "GameMarketListing", isListingCard);
+	var LOG$2 = "[pd2-trade-enhancer]";
+	var STORAGE_KEY = "pd2te-listing-note";
+	var SEPARATOR = " | ";
+	var readListingNote = () => {
+		try {
+			return (localStorage.getItem(STORAGE_KEY) ?? "").trim();
+		} catch {
+			return "";
+		}
+	};
+	var saveListingNote = (note) => {
+		try {
+			const text = note.trim();
+			if (text) localStorage.setItem(STORAGE_KEY, text);
+			else localStorage.removeItem(STORAGE_KEY);
+		} catch (error) {
+			console.warn(LOG$2, "Could not save the listing note.", error);
+		}
+	};
+	var withListingNote = (price, note = readListingNote()) => {
+		const text = price.trim();
+		if (!note || text === note || text.endsWith(`${SEPARATOR}${note}`)) return text;
+		return text ? `${text}${SEPARATOR}${note}` : note;
+	};
+	var isItemListingId = (id) => {
+		const listing = [...getManagePage()?.listings ?? [], ...getCreatePage()?.listings ?? []].find((row) => row._id === id);
+		return !listing || (listing.type ?? "item") === "item";
+	};
+	var addNote = (isItem) => (context) => {
+		const data = context?.data;
+		try {
+			if (isObject(data) && typeof data.price === "string" && readListingNote() && isItem(context)) data.price = withListingNote(data.price);
+		} catch (error) {
+			console.error(LOG$2, "Adding the listing note failed; the listing goes out as it was.", error);
+		}
+		return context;
+	};
+	var hooked = new WeakSet();
+	var ensureListingNoteHook = () => {
+		let service;
+		try {
+			service = getApi()?.service("market/listing");
+		} catch {
+			return;
+		}
+		if (!isObject(service) || typeof service.hooks !== "function" || hooked.has(service)) return;
+		hooked.add(service);
+		try {
+			service.hooks({ before: {
+				create: [addNote((context) => isObject(context.data) && isObject(context.data.item))],
+				patch: [addNote((context) => isItemListingId(context.id))]
+			} });
+		} catch (error) {
+			console.warn(LOG$2, "Could not install the listing note hook.", error);
+		}
+	};
 	var panel = html(`
 <div id="pd2teCreatePanel" class="pd2te-create-panel">
+    <input type="text" class="name-input pd2te-note-input" placeholder="Note after every price (optional)" autocomplete="off"
+        title="Added after the price of every item you list or re-price, here or with the site's own Submit and Modify Price: '2 Ist | your note'. Leave empty for none.">
     <div class="pd2te-create-row">
         <button type="button" class="ls-btn start-btn pd2te-create-btn" data-action="bumpTab"
             title="Bump the listed items on this stash tab">Bump Tab</button>
@@ -5974,6 +6037,8 @@
 	bumpIcon.id = "bumpContainer";
 	var status$1 = panel.querySelector(".pd2te-create-status");
 	var priceInput = panel.querySelector(".pd2te-price-input");
+	var noteInput = panel.querySelector(".pd2te-note-input");
+	noteInput.value = readListingNote();
 	var actionButtons = Array.from(panel.querySelectorAll("button[data-action]")).filter((button) => button.dataset.action !== "stop");
 	var stopButton = panel.querySelector("button[data-action=\"stop\"]");
 	var actions = {
@@ -5990,6 +6055,7 @@
 	priceInput.addEventListener("keydown", (event) => {
 		if (event.key === "Enter") priceTab(priceInput.value);
 	});
+	noteInput.addEventListener("input", () => saveListingNote(noteInput.value));
 	bumpIcon.addEventListener("click", () => {
 		if (!isCreateActionRunning()) bumpSelected();
 	});
@@ -6000,13 +6066,14 @@
 	var setCreateBusy = (busy) => {
 		actionButtons.forEach((button) => button.disabled = busy);
 		priceInput.disabled = busy;
+		noteInput.disabled = busy;
 		stopButton.classList.toggle("pd2te-hidden", !busy);
 		bumpIcon.classList.toggle("pd2te-busy", busy);
 	};
 	var ensurePanel = () => {
 		const row = document.querySelector("input[placeholder='Search for stash item...']")?.closest(".flex.flex-row.mb-4");
-		if (!row || panel.isConnected && panel.previousElementSibling === row) return;
-		row.insertAdjacentElement("afterend", panel);
+		if (!row || panel.isConnected && panel.nextElementSibling === row) return;
+		row.insertAdjacentElement("beforebegin", panel);
 	};
 	var details = null;
 	var currentDetails = () => {
@@ -6026,11 +6093,6 @@
 		ensurePanel();
 		ensureItemPanelControls();
 	};
-	var MANAGE_ROUTE = "market.manage";
-	var isManagePage = (proxy) => isObject(proxy) && Array.isArray(proxy.listings) && hasFunctions(proxy, "fetch", "bumpAll", "updateListing", "$watch");
-	var isListingCard = (proxy) => isObject(proxy) && isObject(proxy.listing) && typeof proxy.listing._id === "string" && "showBump" in proxy && "showActionNotification" in proxy;
-	var getManagePage = () => getRouteComponent(MANAGE_ROUTE, "PageGameMarketManage", isManagePage);
-	var getListingCards = (page) => findAllComponents(page.$.subTree, "GameMarketListing", isListingCard);
 	var LOG$1 = "[pd2-trade-enhancer]";
 	var NOTICE_MS = 2e3;
 	var entries = new WeakMap();
@@ -6440,6 +6502,7 @@
 		stopExchangeLivesearchOffPage();
 		stopCreateActionOffPage();
 		stopFilterSortOffPage();
+		ensureListingNoteHook();
 		if (isMarketPath()) {
 			if (document.getElementById("lsSettingsHeader")) return;
 			tradeOnLoad();

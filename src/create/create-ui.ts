@@ -1,6 +1,6 @@
-// The create page's controls: a panel under the stash search (Bump Tab, Bump All, Delete Tab, Price Tab,
-// Stop and a status line), the ↻ Bump icon in the selected item's panel, shown only for listed items, and
-// its Filter button (item-filter.ts).
+// The create page's controls: a panel above the stash search (the listing note (listing-note.ts), Bump Tab,
+// Bump All, Delete Tab, Price Tab, Stop and a status line), the ↻ Bump icon in the selected item's panel,
+// shown only for listed items, and its Filter button (item-filter.ts).
 // main.ts calls ensureCreateUi on every DOM change, so everything here is cheap and idempotent.
 import { getCharacterDetails } from "../pd2/create-bridge";
 import type { CharacterDetails } from "../pd2/create-bridge";
@@ -8,11 +8,14 @@ import { isAlive } from "../pd2/vue-bridge";
 import { html } from "../utils";
 import { bumpAll, bumpSelected, bumpTab, deleteTab, isCreateActionRunning, priceTab, requestStop } from "./create-actions";
 import { ensureItemFilter } from "./item-filter";
+import { readListingNote, saveListingNote } from "./listing-note";
 
 export type CreateStatusTone = "info" | "warn" | "error";
 
 const panel = html(/*html*/ `
 <div id="pd2teCreatePanel" class="pd2te-create-panel">
+    <input type="text" class="name-input pd2te-note-input" placeholder="Note after every price (optional)" autocomplete="off"
+        title="Added after the price of every item you list or re-price, here or with the site's own Submit and Modify Price: '2 Ist | your note'. Leave empty for none.">
     <div class="pd2te-create-row">
         <button type="button" class="ls-btn start-btn pd2te-create-btn" data-action="bumpTab"
             title="Bump the listed items on this stash tab">Bump Tab</button>
@@ -51,6 +54,8 @@ bumpIcon.id = "bumpContainer";
 
 const status = panel.querySelector<HTMLElement>(".pd2te-create-status")!;
 const priceInput = panel.querySelector<HTMLInputElement>(".pd2te-price-input")!;
+const noteInput = panel.querySelector<HTMLInputElement>(".pd2te-note-input")!;
+noteInput.value = readListingNote();
 const actionButtons = Array.from(panel.querySelectorAll<HTMLButtonElement>("button[data-action]")).filter(
   (button) => button.dataset.action !== "stop"
 );
@@ -72,6 +77,7 @@ panel.addEventListener("click", (event) => {
 priceInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") priceTab(priceInput.value);
 });
+noteInput.addEventListener("input", () => saveListingNote(noteInput.value));
 bumpIcon.addEventListener("click", () => {
   if (!isCreateActionRunning()) bumpSelected();
 });
@@ -84,16 +90,17 @@ export const setCreateStatus = (text: string, tone: CreateStatusTone = "info") =
 export const setCreateBusy = (busy: boolean) => {
   actionButtons.forEach((button) => (button.disabled = busy));
   priceInput.disabled = busy;
+  noteInput.disabled = busy; // a batch's listings all get the same note
   stopButton.classList.toggle("pd2te-hidden", !busy);
   bumpIcon.classList.toggle("pd2te-busy", busy);
 };
 
-// Below the stash search row; Vue re-renders drop it, the next DOM change puts it back
+// Above the stash search row; Vue re-renders drop it, the next DOM change puts it back
 const ensurePanel = () => {
   const search = document.querySelector("input[placeholder='Search for stash item...']");
   const row = search?.closest(".flex.flex-row.mb-4");
-  if (!row || (panel.isConnected && panel.previousElementSibling === row)) return;
-  row.insertAdjacentElement("afterend", panel);
+  if (!row || (panel.isConnected && panel.nextElementSibling === row)) return;
+  row.insertAdjacentElement("beforebegin", panel);
 };
 
 let details: CharacterDetails | null = null;

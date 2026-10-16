@@ -8,6 +8,7 @@ import { stopFilterSortOffPage } from "./filters/saved-order";
 import { stopLivesearchOffPage } from "./trade/logic";
 import { stopExchangeLivesearchOffPage } from "./exchange/exchange-livesearch";
 import { stopCreateActionOffPage } from "./create/create-actions";
+import { ensureListingNoteHook } from "./create/listing-note";
 import { isCreatePath, isExchangePath, isFiltersPath, isManagePath, isMarketPath } from "./utils";
 
 // Main MutationObserver
@@ -18,6 +19,7 @@ const mainObserverLogic = () => {
   stopExchangeLivesearchOffPage();
   stopCreateActionOffPage();
   stopFilterSortOffPage();
+  ensureListingNoteHook(); // the site's own Submit and Modify Price add the note on any page
 
   if (isMarketPath()) {
     if (document.getElementById("lsSettingsHeader")) return; // already set up

@@ -70,24 +70,33 @@
   color: #f87171;
 }
 
-/* Create page panel: Bump Tab / Bump All / Delete Tab, Price Tab, Stop and status */
+/* Create page panel: the listing note, Bump Tab / Bump All / Delete Tab, Price Tab, Stop and status. Three
+   equal button columns; Price Tab sits under Delete Tab, and the note is as wide as all three */
+:root {
+  --pd2te-create-col: 124px;
+  --pd2te-create-gap: 0.5rem;
+  --pd2te-create-width: calc(3 * var(--pd2te-create-col) + 2 * var(--pd2te-create-gap));
+}
+
 .pd2te-create-panel {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--pd2te-create-gap);
   margin-bottom: 1rem;
+  width: var(--pd2te-create-width);
 }
 
 .pd2te-create-row {
   align-items: center;
   display: flex;
-  gap: 0.5rem;
+  gap: var(--pd2te-create-gap);
 }
 
 .pd2te-create-btn {
+  flex: none;
   font-size: 16px;
   margin-bottom: 0;
-  min-width: 120px;
+  width: var(--pd2te-create-col);
 }
 
 .pd2te-create-btn:disabled {
@@ -95,11 +104,15 @@
   opacity: 0.5;
 }
 
-/* Half the row's free space: a grow factor under 1 takes only that share of it */
+/* The first two columns, so Price Tab lines up under Delete Tab */
 .pd2te-price-input {
-  flex: 0.5 1 0;
+  flex: 1 1 0;
   height: 34px;
   min-width: 0;
+}
+
+.pd2te-note-input {
+  height: 34px;
 }
 
 .pd2te-create-panel .pd2te-create-status {
