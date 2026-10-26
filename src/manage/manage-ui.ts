@@ -1,5 +1,5 @@
 // The ↻ Bump icon on every card of /market/manage: items, services and exchanges. The site's own Bump there
-// is locked for 12 hours after a bump, which only the page enforces; the server takes the same patch any time.
+// is locked for 12 hours after a bump; within those, ours lists the listing again (see listing-ops.ts).
 // main.ts calls ensureManageUi on every DOM change, so the component tree is only walked when a card shows up.
 import { getListingCards, getManagePage } from "../pd2/manage-bridge";
 import type { ListingCard } from "../pd2/manage-bridge";
@@ -44,7 +44,15 @@ const bumpCard = async (card: ListingCard, icon: HTMLElement) => {
   icon.classList.add("pd2te-busy");
   try {
     const outcome = await bumpListing(listing);
-    if (outcome.ok) {
+    if (outcome.ok && outcome.listing && outcome.listing._id !== listing._id) {
+      // Listed again: the old card goes, the new listing comes in with the page's own reload
+      notify(card, "Relisted", "success");
+      try {
+        getManagePage()?.fetch();
+      } catch (error) {
+        console.warn(LOG, "Could not reload the page's listings.", error);
+      }
+    } else if (outcome.ok) {
       // What the site's own Bump does: the card's time and the site's 12-hour lock follow
       if (outcome.listing) {
         listing.updated_at = outcome.listing.updated_at;

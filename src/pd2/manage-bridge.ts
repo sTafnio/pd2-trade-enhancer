@@ -8,6 +8,7 @@ const MANAGE_ROUTE = "market.manage";
 
 export interface ManagePage extends VueComponent {
   listings: OwnListing[];
+  fetch(): unknown;
 }
 
 // GameMarketListing: one listing's card (also on /market and in the create page's item panel)

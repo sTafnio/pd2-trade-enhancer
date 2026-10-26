@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         pd2-trade-enhancer
 // @namespace    https://github.com/sTafnio/pd2-trade-enhancer
-// @version      1.2.0
+// @version      1.2.1
 // @author       sTafnio
 // @description  Userscript to enhance the Project Diablo 2 trade website
 // @icon         https://projectdiablo2.com/image/portal.png
@@ -5463,7 +5463,7 @@
 	var getListingCrud = () => {
 		try {
 			const service = getApi()?.service("market/listing");
-			return hasFunctions(service, "find", "create", "patch", "remove") ? service : null;
+			return hasFunctions(service, "find", "get", "create", "patch", "remove") ? service : null;
 		} catch {
 			return null;
 		}
@@ -5474,10 +5474,24 @@
 	var RATE_LIMIT_WAIT_MS = 3e4;
 	var MAX_SEND_ATTEMPTS = 3;
 	var VERIFY_DELAY_MS = 3e3;
+	var BUMP_INTERVAL_MS = 432e5;
+	var SERVER_FIELDS = [
+		"_id",
+		"bumped_at",
+		"created_at",
+		"updated_at",
+		"created_by_id",
+		"updated_by_id",
+		"user_last_online",
+		"user_last_ingame",
+		"user",
+		"accepted_offer_id"
+	];
 	var classify = (error) => {
 		const code = errorCode(error);
 		const name = typeof error === "object" && error !== null && "name" in error ? String(error.name) : "";
 		if (code === 404 || name === "NotFound") return "notFound";
+		if (code === 429 && /every 12 hours/i.test(errorMessage(error))) return "bumpLimit";
 		if (isRateLimitError(error)) return "rateLimited";
 		if (code === 408 || name === "Timeout") return "timeout";
 		if (code >= 400 && code < 500) return "rejected";
@@ -5581,6 +5595,78 @@
 		}
 	};
 	var listingsOfItem = async (hash) => (await rereadMyListings())?.filter((listing) => listing.item?.hash === hash) ?? null;
+	var isListingLimitError = (error) => errorCode(error) === 422 && /listing limit/i.test(errorMessage(error));
+	var bumpedRecently = (listing) => Date.now() - (Date.parse(listing.bumped_at ?? "") || 0) < BUMP_INTERVAL_MS;
+	var relistListing = async (listing, verb, changes) => {
+		const name = listingName(listing);
+		const service = serviceOrThrow();
+		const current = await call(() => service.get(listing._id));
+		if (!current.ok) {
+			if (current.kind === "notFound") return {
+				ok: false,
+				severity: "skip",
+				message: `${name}: the listing is gone (sold or removed)`
+			};
+			return {
+				ok: false,
+				severity: "stop",
+				message: `${name}: could not read the listing (${errorMessage(current.error)})`
+			};
+		}
+		if (current.value.accepted_offer_id) return {
+			ok: false,
+			severity: "skip",
+			message: `${name}: has an accepted offer`
+		};
+		const bumpedAt = new Date().toJSON();
+		const data = JSON.parse(JSON.stringify(current.value));
+		SERVER_FIELDS.forEach((field) => delete data[field]);
+		Object.assign(data, changes, { bumped_at: bumpedAt });
+		const createOnce = async () => {
+			const created = await call(() => service.create(data));
+			if (created.ok || created.kind !== "timeout" && created.kind !== "unknown") return created;
+			await sleep(VERIFY_DELAY_MS);
+			const row = (await rereadMyListings())?.find((other) => other._id !== listing._id && Date.parse(other.bumped_at ?? "") === Date.parse(bumpedAt));
+			return row ? {
+				ok: true,
+				value: row
+			} : created;
+		};
+		const created = await createOnce();
+		if (created.ok) {
+			const removed = await deleteListing(listing);
+			if (!removed.ok) return {
+				ok: false,
+				severity: "stop",
+				message: `${name}: listed again, but the old listing is still up (${removed.message})`
+			};
+			return {
+				ok: true,
+				listing: created.value
+			};
+		}
+		if (!isListingLimitError(created.error)) return {
+			ok: false,
+			severity: "stop",
+			message: `${name}: the ${verb} did not go through (${errorMessage(created.error)}); the listing is unchanged`
+		};
+		const removed = await deleteListing(listing);
+		if (!removed.ok) return {
+			ok: false,
+			severity: "stop",
+			message: removed.message
+		};
+		const again = await createOnce();
+		if (again.ok) return {
+			ok: true,
+			listing: again.value
+		};
+		return {
+			ok: false,
+			severity: "stop",
+			message: `${name}: the old listing was removed but listing it again failed (${errorMessage(again.error)}); list it again by hand`
+		};
+	};
 	var patchListing = async (listing, verb, changes) => {
 		const name = listingName(listing);
 		if (listing.accepted_offer_id) return {
@@ -5588,6 +5674,7 @@
 			severity: "skip",
 			message: `${name}: has an accepted offer`
 		};
+		if (bumpedRecently(listing)) return relistListing(listing, verb, changes);
 		const service = serviceOrThrow();
 		const bumpedAt = new Date().toJSON();
 		const patched = await call(() => service.patch(listing._id, {
@@ -5598,6 +5685,7 @@
 			ok: true,
 			listing: patched.value
 		};
+		if (patched.kind === "bumpLimit") return relistListing(listing, verb, changes);
 		if (patched.kind === "notFound") return {
 			ok: false,
 			severity: "skip",
@@ -5669,7 +5757,7 @@
 				message: `${name}: no answer from the site (${errorMessage(created.error)}); not listed`
 			};
 		}
-		if (errorCode(created.error) === 422 && /listing limit/i.test(errorMessage(created.error))) return {
+		if (isListingLimitError(created.error)) return {
 			ok: false,
 			severity: "stop",
 			message: `${name}: the 50-listing limit is reached; not listed`
@@ -5681,7 +5769,7 @@
 		};
 	};
 	var deleteListing = async (listing) => {
-		const name = itemName(listing.item);
+		const name = listingName(listing);
 		const service = serviceOrThrow();
 		const removed = await call(() => service.remove(listing._id));
 		if (removed.ok || !removed.ok && removed.kind === "notFound") return { ok: true };
@@ -6115,7 +6203,14 @@
 		icon.classList.add("pd2te-busy");
 		try {
 			const outcome = await bumpListing(listing);
-			if (outcome.ok) {
+			if (outcome.ok && outcome.listing && outcome.listing._id !== listing._id) {
+				notify(card, "Relisted", "success");
+				try {
+					getManagePage()?.fetch();
+				} catch (error) {
+					console.warn(LOG$1, "Could not reload the page's listings.", error);
+				}
+			} else if (outcome.ok) {
 				if (outcome.listing) {
 					listing.updated_at = outcome.listing.updated_at;
 					listing.bumped_at = outcome.listing.bumped_at;

@@ -60,6 +60,7 @@ interface ItemGrid extends VueComponent {
 
 export interface ListingService {
   find(params: { query: Query; pd2: true }): Promise<FindResult<OwnListing>>;
+  get(id: string): Promise<OwnListing>;
   create(data: Record<string, unknown>): Promise<OwnListing>;
   patch(id: string, data: Record<string, unknown>): Promise<OwnListing>;
   remove(id: string): Promise<OwnListing>;
@@ -92,7 +93,7 @@ export const getVisibleStashItems = (details: CharacterDetails): StashItem[] | n
 export const getListingCrud = (): ListingService | null => {
   try {
     const service = getApi()?.service("market/listing");
-    return hasFunctions(service, "find", "create", "patch", "remove") ? (service as ListingService) : null;
+    return hasFunctions(service, "find", "get", "create", "patch", "remove") ? (service as ListingService) : null;
   } catch {
     return null;
   }
